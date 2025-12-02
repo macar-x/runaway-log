@@ -3,7 +3,7 @@
 //
 // See https://aka.ms/devcontainer.json for more information.
 {
-	"name": "Ona",
+	"name": "RunawayLog Dev",
 	// Use "image": "mcr.microsoft.com/devcontainers/base:ubuntu-24.04",
 	// instead of the build to use a pre-built image.
 	"build": {
@@ -19,5 +19,9 @@
 			"version": "latest",
 			"dockerDashComposeVersion": "v2"
 		}
-	}
+	},
+	// Install npm dependencies after container is created
+	"postCreateCommand": "npm install",
+	// Set the working directory
+	"workspaceFolder": "/workspaces/runaway-log"
 }

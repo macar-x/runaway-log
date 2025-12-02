@@ -14,9 +14,33 @@ Track your desire to escape the daily grind. Every click represents your dream o
 
 ## 🚀 Quick Start
 
-### Run Locally (Development)
+### Option 1: Dev Container (Recommended)
+
+Perfect for Gitpod, GitHub Codespaces, or VS Code with Dev Containers:
 
 ```bash
+# Clone the repository
+git clone https://github.com/macar-x/runaway-log.git
+cd runaway-log
+
+# Open in dev container
+# - VS Code: Reopen in Container (command palette)
+# - Gitpod: Open in browser
+# - Codespaces: Create codespace
+
+# Dependencies install automatically, then start dev server
+npm run dev
+```
+
+The dev container includes Node.js 20.x, Docker, and all tools pre-configured.
+
+### Option 2: Run Locally (Development)
+
+```bash
+# Clone the repository
+git clone https://github.com/macar-x/runaway-log.git
+cd runaway-log
+
 # Install dependencies
 npm install
 
