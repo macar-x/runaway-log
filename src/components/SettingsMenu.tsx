@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { colorThemes, getThemeById, applyTheme, type ColorTheme } from '../themes';
+import { colorThemes, getThemeById, applyTheme } from '../themes';
 import { getTheme, setTheme, type Theme } from '../darkMode';
 import './SettingsMenu.css';
 
