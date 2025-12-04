@@ -31,6 +31,14 @@ This document tracks planned features and improvements for RunawayLog.
   - Optimized for A4/Letter paper
   - Print-friendly CSS (black & white option)
 
+### Completed
+
+- [x] **Settings Menu** ✅
+  - Consolidated Export, Import, Print, and Theme Selector into settings menu
+  - Clean header with only Settings and Logout buttons
+  - Dropdown menu with visual theme previews
+  - Mobile-optimized bottom sheet on small screens
+
 ### Medium Priority
 
 - [ ] **Dark Mode Support**

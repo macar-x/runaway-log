@@ -6,8 +6,8 @@ import { getRandomQuote } from '../quotes';
 import { exportUserData, importUserData } from '../exportImport';
 import { HitCalendar } from './HitCalendar';
 import { HitLogs } from './HitLogs';
-import { ThemeSelector } from './ThemeSelector';
 import { PrintCalendar } from './PrintCalendar';
+import { SettingsMenu } from './SettingsMenu';
 import './Dashboard.css';
 
 interface DashboardProps {
@@ -192,12 +192,6 @@ export const Dashboard = ({ username, onLogout }: DashboardProps) => {
           <span className="username">{username}</span>
         </div>
         <div className="header-actions">
-          <button onClick={handleExport} className="action-button export-button" title="Export data">
-            📥 Export
-          </button>
-          <button onClick={handleImportClick} className="action-button import-button" title="Import data">
-            📤 Import
-          </button>
           <input
             ref={fileInputRef}
             type="file"
@@ -205,9 +199,11 @@ export const Dashboard = ({ username, onLogout }: DashboardProps) => {
             onChange={handleImportFile}
             style={{ display: 'none' }}
           />
-          <button onClick={() => setShowPrintDialog(true)} className="action-button print-button" title="Print calendar">
-            🖨️ Print
-          </button>
+          <SettingsMenu
+            onExport={handleExport}
+            onImport={handleImportClick}
+            onPrint={() => setShowPrintDialog(true)}
+          />
           <button onClick={onLogout} className="logout-button">
             Logout
           </button>
@@ -234,14 +230,11 @@ export const Dashboard = ({ username, onLogout }: DashboardProps) => {
 
         {userData.hits.length > 0 && (
           <div className="data-section">
-            <div className="calendar-section">
-              <ThemeSelector />
-              <HitCalendar 
-                hits={userData.hits} 
-                currentMonth={currentMonth}
-                onMonthChange={setCurrentMonth}
-              />
-            </div>
+            <HitCalendar 
+              hits={userData.hits} 
+              currentMonth={currentMonth}
+              onMonthChange={setCurrentMonth}
+            />
             <HitLogs hits={userData.hits} />
           </div>
         )}
