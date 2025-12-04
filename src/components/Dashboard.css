@@ -1,6 +1,6 @@
 .dashboard-container {
   min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
   padding: 2rem;
 }
 
@@ -9,10 +9,10 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 2rem;
-  background: white;
+  background: var(--bg-primary);
   padding: 1rem 1.5rem;
   border-radius: 15px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-md);
 }
 
 .user-info {
@@ -21,7 +21,7 @@
   gap: 0.5rem;
   font-size: 1.2rem;
   font-weight: 600;
-  color: #333;
+  color: var(--text-primary);
 }
 
 .user-icon {
@@ -99,10 +99,10 @@
 }
 
 .hit-section {
-  background: white;
+  background: var(--bg-primary);
   padding: 3rem;
   border-radius: 20px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--shadow-lg);
   margin-bottom: 2rem;
   text-align: center;
   position: relative;
@@ -111,7 +111,7 @@
 .section-title {
   font-size: 2rem;
   margin: 0 0 2rem 0;
-  color: #333;
+  color: var(--text-primary);
   font-weight: 700;
 }
 
@@ -177,7 +177,7 @@
 .motivational-quote {
   margin-top: 2rem;
   font-size: 1.1rem;
-  color: #667eea;
+  color: var(--accent-primary);
   font-style: italic;
   font-weight: 500;
   max-width: 600px;
@@ -193,11 +193,11 @@
 .hit-count {
   margin-top: 1rem;
   font-size: 1.3rem;
-  color: #666;
+  color: var(--text-secondary);
 }
 
 .hit-count strong {
-  color: #f5576c;
+  color: var(--accent-secondary);
   font-size: 1.5rem;
 }
 
@@ -216,18 +216,18 @@
 }
 
 .import-dialog {
-  background: white;
+  background: var(--bg-primary);
   border-radius: 20px;
   padding: 2rem;
   max-width: 500px;
   width: 90%;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  box-shadow: var(--shadow-lg);
 }
 
 .import-dialog-title {
   font-size: 1.8rem;
   margin: 0 0 1.5rem 0;
-  color: #333;
+  color: var(--text-primary);
   font-weight: 700;
   text-align: center;
 }
@@ -237,11 +237,12 @@
 }
 
 .import-info {
-  background: #f5f5f5;
+  background: var(--bg-secondary);
   padding: 1rem;
   border-radius: 10px;
   margin-bottom: 1rem;
   line-height: 1.6;
+  color: var(--text-primary);
 }
 
 .import-warning {
@@ -255,7 +256,7 @@
 }
 
 .import-description {
-  color: #666;
+  color: var(--text-secondary);
   line-height: 1.8;
   font-size: 0.95rem;
 }

@@ -1,21 +1,21 @@
 .logs-container {
-  background: white;
+  background: var(--bg-primary);
   padding: 1.5rem;
   border-radius: 20px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--shadow-lg);
   height: fit-content;
 }
 
 .logs-title {
   font-size: 1.3rem;
   margin: 0 0 1.5rem 0;
-  color: #333;
+  color: var(--text-primary);
   font-weight: 700;
 }
 
 .logs-subtitle {
   font-size: 0.9rem;
-  color: #999;
+  color: var(--text-tertiary);
   font-weight: 400;
 }
 
@@ -33,17 +33,17 @@
 }
 
 .logs-list::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: var(--bg-secondary);
   border-radius: 10px;
 }
 
 .logs-list::-webkit-scrollbar-thumb {
-  background: #888;
+  background: var(--border-color);
   border-radius: 10px;
 }
 
 .logs-list::-webkit-scrollbar-thumb:hover {
-  background: #555;
+  background: var(--text-tertiary);
 }
 
 .log-item {
@@ -51,25 +51,25 @@
   align-items: center;
   gap: 1rem;
   padding: 1rem;
-  background: #f8f9fa;
+  background: var(--bg-secondary);
   border-radius: 10px;
   transition: all 0.3s ease;
 }
 
 .log-item:hover {
-  background: #e9ecef;
+  background: var(--bg-tertiary);
   transform: translateX(5px);
 }
 
 .log-number {
   font-weight: 700;
-  color: #667eea;
+  color: var(--accent-primary);
   min-width: 50px;
 }
 
 .log-time {
   flex: 1;
-  color: #666;
+  color: var(--text-secondary);
   font-size: 0.95rem;
 }
 

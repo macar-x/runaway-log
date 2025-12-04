@@ -41,10 +41,12 @@ This document tracks planned features and improvements for RunawayLog.
 
 ### Medium Priority
 
-- [ ] **Dark Mode Support**
+- [x] **Dark Mode Support** ✅
   - Toggle between light and dark themes
   - Save preference to localStorage
   - Apply to all components
+  - Respects system preference on first load
+  - Smooth transitions between modes
 
 - [ ] **Custom Date Range for Calendar**
   - Allow users to select custom date ranges

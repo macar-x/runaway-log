@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { colorThemes, getThemeById, applyTheme, type ColorTheme } from '../themes';
+import { getTheme, setTheme, type Theme } from '../darkMode';
 import './SettingsMenu.css';
 
 interface SettingsMenuProps {
@@ -13,6 +14,7 @@ export const SettingsMenu = ({ onExport, onImport, onPrint }: SettingsMenuProps)
   const [selectedTheme, setSelectedTheme] = useState<string>(() => {
     return localStorage.getItem('calendar-theme') || 'github-green';
   });
+  const [darkMode, setDarkMode] = useState<Theme>(() => getTheme());
   const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -49,6 +51,12 @@ export const SettingsMenu = ({ onExport, onImport, onPrint }: SettingsMenuProps)
     localStorage.setItem('calendar-theme', themeId);
   };
 
+  const handleDarkModeToggle = () => {
+    const newTheme = darkMode === 'light' ? 'dark' : 'light';
+    setTheme(newTheme);
+    setDarkMode(newTheme);
+  };
+
   const handleMenuAction = (action: () => void) => {
     action();
     setIsOpen(false);
@@ -67,6 +75,21 @@ export const SettingsMenu = ({ onExport, onImport, onPrint }: SettingsMenuProps)
 
       {isOpen && (
         <div className="settings-dropdown">
+          <div className="settings-section">
+            <h3 className="settings-section-title">Appearance</h3>
+            <button onClick={handleDarkModeToggle} className="dark-mode-toggle">
+              <span className="toggle-icon">{darkMode === 'dark' ? '🌙' : '☀️'}</span>
+              <span className="toggle-label">
+                {darkMode === 'dark' ? 'Dark Mode' : 'Light Mode'}
+              </span>
+              <div className={`toggle-switch ${darkMode === 'dark' ? 'active' : ''}`}>
+                <div className="toggle-slider"></div>
+              </div>
+            </button>
+          </div>
+
+          <div className="settings-divider"></div>
+
           <div className="settings-section">
             <h3 className="settings-section-title">Calendar Theme</h3>
             <div className="theme-options">
