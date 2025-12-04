@@ -127,7 +127,7 @@
 }
 
 .intensity-0 {
-  background: #ebedf0;
+  background: var(--intensity-0, #ebedf0);
 }
 
 .intensity-0 .day-number {
@@ -135,15 +135,15 @@
 }
 
 .intensity-1 {
-  background: #c6e48b;
+  background: var(--intensity-1, #c6e48b);
 }
 
 .intensity-2 {
-  background: #7bc96f;
+  background: var(--intensity-2, #7bc96f);
 }
 
 .intensity-3 {
-  background: #239a3b;
+  background: var(--intensity-3, #239a3b);
 }
 
 .intensity-3 .day-number,
@@ -152,7 +152,7 @@
 }
 
 .intensity-4 {
-  background: #196127;
+  background: var(--intensity-4, #196127);
 }
 
 .calendar-legend {

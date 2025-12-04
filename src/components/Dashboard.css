@@ -88,6 +88,12 @@
   align-items: start;
 }
 
+.calendar-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
 @media (max-width: 1024px) {
   .data-section {
     grid-template-columns: 1fr;

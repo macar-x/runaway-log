@@ -6,7 +6,7 @@ This document tracks planned features and improvements for RunawayLog.
 
 ### High Priority
 
-- [ ] **Color Template Selector for Calendar**
+- [x] **Color Template Selector for Calendar** ✅
   - Add dropdown/selector to choose calendar color themes
   - Current: GitHub green template only
   - Planned themes:

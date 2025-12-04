@@ -6,6 +6,7 @@ import { getRandomQuote } from '../quotes';
 import { exportUserData, importUserData } from '../exportImport';
 import { HitCalendar } from './HitCalendar';
 import { HitLogs } from './HitLogs';
+import { ThemeSelector } from './ThemeSelector';
 import './Dashboard.css';
 
 interface DashboardProps {
@@ -227,7 +228,10 @@ export const Dashboard = ({ username, onLogout }: DashboardProps) => {
 
         {userData.hits.length > 0 && (
           <div className="data-section">
-            <HitCalendar hits={userData.hits} />
+            <div className="calendar-section">
+              <ThemeSelector />
+              <HitCalendar hits={userData.hits} />
+            </div>
             <HitLogs hits={userData.hits} />
           </div>
         )}
