@@ -7,6 +7,7 @@ import { exportUserData, importUserData } from '../exportImport';
 import { HitCalendar } from './HitCalendar';
 import { HitLogs } from './HitLogs';
 import { ThemeSelector } from './ThemeSelector';
+import { PrintCalendar } from './PrintCalendar';
 import './Dashboard.css';
 
 interface DashboardProps {
@@ -19,6 +20,8 @@ export const Dashboard = ({ username, onLogout }: DashboardProps) => {
   const [isAnimating, setIsAnimating] = useState(false);
   const [quote, setQuote] = useState<string>('');
   const [importDialog, setImportDialog] = useState<{ show: boolean; data: UserData | null }>({ show: false, data: null });
+  const [showPrintDialog, setShowPrintDialog] = useState(false);
+  const [currentMonth, setCurrentMonth] = useState(new Date());
   const buttonRef = useRef<HTMLButtonElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -202,6 +205,9 @@ export const Dashboard = ({ username, onLogout }: DashboardProps) => {
             onChange={handleImportFile}
             style={{ display: 'none' }}
           />
+          <button onClick={() => setShowPrintDialog(true)} className="action-button print-button" title="Print calendar">
+            🖨️ Print
+          </button>
           <button onClick={onLogout} className="logout-button">
             Logout
           </button>
@@ -230,12 +236,25 @@ export const Dashboard = ({ username, onLogout }: DashboardProps) => {
           <div className="data-section">
             <div className="calendar-section">
               <ThemeSelector />
-              <HitCalendar hits={userData.hits} />
+              <HitCalendar 
+                hits={userData.hits} 
+                currentMonth={currentMonth}
+                onMonthChange={setCurrentMonth}
+              />
             </div>
             <HitLogs hits={userData.hits} />
           </div>
         )}
       </main>
+
+      {showPrintDialog && (
+        <PrintCalendar
+          hits={userData.hits}
+          username={username}
+          currentMonth={currentMonth}
+          onClose={() => setShowPrintDialog(false)}
+        />
+      )}
 
       {importDialog.show && importDialog.data && (
         <div className="import-dialog-overlay">

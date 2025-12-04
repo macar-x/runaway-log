@@ -5,11 +5,16 @@ import './HitCalendar.css';
 
 interface HitCalendarProps {
   hits: HitLog[];
+  currentMonth?: Date;
+  onMonthChange?: (date: Date) => void;
 }
 
-export const HitCalendar = ({ hits }: HitCalendarProps) => {
+export const HitCalendar = ({ hits, currentMonth: propCurrentMonth, onMonthChange }: HitCalendarProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [currentMonth, setCurrentMonth] = useState(new Date());
+  const [internalMonth, setInternalMonth] = useState(new Date());
+  
+  const currentMonth = propCurrentMonth || internalMonth;
+  const setCurrentMonth = onMonthChange || setInternalMonth;
 
   useEffect(() => {
     if (containerRef.current) {

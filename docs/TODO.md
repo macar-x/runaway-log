@@ -19,7 +19,7 @@ This document tracks planned features and improvements for RunawayLog.
   - Save user preference to localStorage
   - Apply theme to calendar heatmap intensity colors
 
-- [ ] **Print Calendar Feature**
+- [x] **Print Calendar Feature** ✅
   - Add Print button between Import/Export and Logout
   - Opens print preview window with:
     - Calendar panel only (full size)
