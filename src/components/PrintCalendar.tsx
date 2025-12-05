@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import type { HitLog } from '../types';
+import { getSavedTimezone, timestampToDateString } from '../timezone';
 import './PrintCalendar.css';
 
 interface PrintCalendarProps {
@@ -7,10 +8,12 @@ interface PrintCalendarProps {
   username: string;
   currentMonth: Date;
   onClose: () => void;
+  timezone?: string;
 }
 
-export const PrintCalendar = ({ hits, username, currentMonth, onClose }: PrintCalendarProps) => {
+export const PrintCalendar = ({ hits, username, currentMonth, onClose, timezone: propTimezone }: PrintCalendarProps) => {
   const printRef = useRef<HTMLDivElement>(null);
+  const timezone = propTimezone || getSavedTimezone();
 
   useEffect(() => {
     // Add class to body for print styling
@@ -45,10 +48,16 @@ export const PrintCalendar = ({ hits, username, currentMonth, onClose }: PrintCa
       days.push(null);
     }
     
+    // Recalculate hit dates based on current timezone
+    const hitsByDate = new Map<string, number>();
+    hits.forEach(hit => {
+      const dateStr = timestampToDateString(hit.timestamp, timezone);
+      hitsByDate.set(dateStr, (hitsByDate.get(dateStr) || 0) + 1);
+    });
+    
     for (let day = 1; day <= daysInMonth; day++) {
-      const date = new Date(year, month, day);
-      const dateStr = date.toISOString().split('T')[0];
-      const hitCount = hits.filter(hit => hit.date === dateStr).length;
+      const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+      const hitCount = hitsByDate.get(dateStr) || 0;
       
       days.push({
         date: dateStr,

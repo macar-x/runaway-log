@@ -1,4 +1,5 @@
 import type { UserData, HitLog } from './types';
+import { getCurrentTimestamp, timestampToDateString, getSavedTimezone } from './timezone';
 
 const STORAGE_KEY = 'runawaylog-data';
 
@@ -8,7 +9,30 @@ export const loadUserData = (username: string): UserData | null => {
     if (!data) return null;
     
     const allUsers: Record<string, UserData> = JSON.parse(data);
-    return allUsers[username] || null;
+    const userData = allUsers[username];
+    
+    if (!userData) return null;
+    
+    // Migrate old data: recalculate date field based on timestamp and current timezone
+    const timezone = getSavedTimezone();
+    let needsSave = false;
+    
+    const migratedHits = userData.hits.map(hit => {
+      const correctDate = timestampToDateString(hit.timestamp, timezone);
+      if (hit.date !== correctDate) {
+        needsSave = true;
+        return { ...hit, date: correctDate };
+      }
+      return hit;
+    });
+    
+    if (needsSave) {
+      const migratedData = { ...userData, hits: migratedHits };
+      saveUserData(migratedData);
+      return migratedData;
+    }
+    
+    return userData;
   } catch (error) {
     console.error('Error loading user data:', error);
     return null;
@@ -31,10 +55,14 @@ export const addHit = (username: string): HitLog | null => {
   try {
     const userData = loadUserData(username) || { username, hits: [] };
     
+    // Store timestamp in UTC (Date.now() is always UTC)
+    const timestamp = getCurrentTimestamp();
+    const timezone = getSavedTimezone();
+    
     const newHit: HitLog = {
-      id: `${Date.now()}-${Math.random()}`,
-      timestamp: Date.now(),
-      date: new Date().toISOString().split('T')[0],
+      id: `${timestamp}-${Math.random()}`,
+      timestamp: timestamp,
+      date: timestampToDateString(timestamp, timezone),
     };
     
     userData.hits.push(newHit);

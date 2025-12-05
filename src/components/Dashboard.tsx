@@ -4,6 +4,7 @@ import type { UserData } from '../types';
 import { addHit, loadUserData, saveUserData } from '../storage';
 import { getRandomQuote } from '../quotes';
 import { exportUserData, importUserData } from '../exportImport';
+import { getSavedTimezone } from '../timezone';
 import { HitCalendar } from './HitCalendar';
 import { HitLogs } from './HitLogs';
 import { PrintCalendar } from './PrintCalendar';
@@ -22,6 +23,7 @@ export const Dashboard = ({ username, onLogout }: DashboardProps) => {
   const [importDialog, setImportDialog] = useState<{ show: boolean; data: UserData | null }>({ show: false, data: null });
   const [showPrintDialog, setShowPrintDialog] = useState(false);
   const [currentMonth, setCurrentMonth] = useState(new Date());
+  const [timezone, setTimezone] = useState<string>(() => getSavedTimezone());
   const buttonRef = useRef<HTMLButtonElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -184,6 +186,10 @@ export const Dashboard = ({ username, onLogout }: DashboardProps) => {
     setImportDialog({ show: false, data: null });
   };
 
+  const handleTimezoneChange = () => {
+    setTimezone(getSavedTimezone());
+  };
+
   return (
     <div className="dashboard-container" ref={containerRef}>
       <header className="dashboard-header">
@@ -203,6 +209,7 @@ export const Dashboard = ({ username, onLogout }: DashboardProps) => {
             onExport={handleExport}
             onImport={handleImportClick}
             onPrint={() => setShowPrintDialog(true)}
+            onTimezoneChange={handleTimezoneChange}
           />
           <button onClick={onLogout} className="logout-button">
             Logout
@@ -234,8 +241,9 @@ export const Dashboard = ({ username, onLogout }: DashboardProps) => {
               hits={userData.hits} 
               currentMonth={currentMonth}
               onMonthChange={setCurrentMonth}
+              timezone={timezone}
             />
-            <HitLogs hits={userData.hits} />
+            <HitLogs hits={userData.hits} timezone={timezone} />
           </div>
         )}
       </main>
@@ -246,6 +254,7 @@ export const Dashboard = ({ username, onLogout }: DashboardProps) => {
           username={username}
           currentMonth={currentMonth}
           onClose={() => setShowPrintDialog(false)}
+          timezone={timezone}
         />
       )}
 

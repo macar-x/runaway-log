@@ -1,14 +1,17 @@
 import { useEffect, useRef } from 'react';
 import { animate, stagger } from 'animejs';
 import type { HitLog } from '../types';
+import { getSavedTimezone, formatDateInTimezone } from '../timezone';
 import './HitLogs.css';
 
 interface HitLogsProps {
   hits: HitLog[];
+  timezone?: string;
 }
 
-export const HitLogs = ({ hits }: HitLogsProps) => {
+export const HitLogs = ({ hits, timezone: propTimezone }: HitLogsProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const timezone = propTimezone || getSavedTimezone();
 
   useEffect(() => {
     if (containerRef.current) {
@@ -24,15 +27,7 @@ export const HitLogs = ({ hits }: HitLogsProps) => {
   }, [hits]);
 
   const formatTime = (timestamp: number) => {
-    const date = new Date(timestamp);
-    return date.toLocaleString('en-US', {
-      month: 'short',
-      day: 'numeric',
-      year: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit',
-      second: '2-digit',
-    });
+    return formatDateInTimezone(timestamp, timezone);
   };
 
   // Show most recent hits first

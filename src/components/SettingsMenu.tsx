@@ -1,21 +1,25 @@
 import { useState, useEffect, useRef } from 'react';
 import { colorThemes, getThemeById, applyTheme } from '../themes';
 import { getTheme, setTheme, type Theme } from '../darkMode';
+import { getTimezones, getSavedTimezone, saveTimezone, getTimezoneDisplayName } from '../timezone';
 import './SettingsMenu.css';
 
 interface SettingsMenuProps {
   onExport: () => void;
   onImport: () => void;
   onPrint: () => void;
+  onTimezoneChange?: () => void;
 }
 
-export const SettingsMenu = ({ onExport, onImport, onPrint }: SettingsMenuProps) => {
+export const SettingsMenu = ({ onExport, onImport, onPrint, onTimezoneChange }: SettingsMenuProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedTheme, setSelectedTheme] = useState<string>(() => {
     return localStorage.getItem('calendar-theme') || 'github-green';
   });
   const [darkMode, setDarkMode] = useState<Theme>(() => getTheme());
+  const [selectedTimezone, setSelectedTimezone] = useState<string>(() => getSavedTimezone());
   const menuRef = useRef<HTMLDivElement>(null);
+  const timezones = getTimezones();
 
   useEffect(() => {
     const theme = getThemeById(selectedTheme);
@@ -55,6 +59,14 @@ export const SettingsMenu = ({ onExport, onImport, onPrint }: SettingsMenuProps)
     const newTheme = darkMode === 'light' ? 'dark' : 'light';
     setTheme(newTheme);
     setDarkMode(newTheme);
+  };
+
+  const handleTimezoneChange = (timezone: string) => {
+    setSelectedTimezone(timezone);
+    saveTimezone(timezone);
+    if (onTimezoneChange) {
+      onTimezoneChange();
+    }
   };
 
   const handleMenuAction = (action: () => void) => {
@@ -109,6 +121,25 @@ export const SettingsMenu = ({ onExport, onImport, onPrint }: SettingsMenuProps)
                   {selectedTheme === theme.id && <span className="theme-check">✓</span>}
                 </button>
               ))}
+            </div>
+          </div>
+
+          <div className="settings-divider"></div>
+
+          <div className="settings-section">
+            <h3 className="settings-section-title">Timezone</h3>
+            <div className="timezone-selector">
+              <select 
+                value={selectedTimezone} 
+                onChange={(e) => handleTimezoneChange(e.target.value)}
+                className="timezone-select"
+              >
+                {timezones.map((tz) => (
+                  <option key={tz} value={tz}>
+                    {getTimezoneDisplayName(tz)}
+                  </option>
+                ))}
+              </select>
             </div>
           </div>
 
