@@ -4,7 +4,8 @@ import type { UserData } from '../types';
 import { addHit, loadUserData, saveUserData } from '../storage';
 import { getRandomQuote } from '../quotes';
 import { exportUserData, importUserData } from '../exportImport';
-import { getSavedTimezone } from '../timezone';
+import { getSavedTimezone, saveTimezone } from '../timezone';
+import { setTheme } from '../darkMode';
 import { HitCalendar } from './HitCalendar';
 import { HitLogs } from './HitLogs';
 import { PrintCalendar } from './PrintCalendar';
@@ -165,8 +166,17 @@ export const Dashboard = ({ username, onLogout }: DashboardProps) => {
     };
     setUserData(mergedData);
     saveUserData(mergedData);
+    
+    // Apply imported settings if available
+    if (importDialog.data.settings) {
+      applyImportedSettings(importDialog.data.settings);
+    }
+    
     setImportDialog({ show: false, data: null });
     alert(`✅ Merged ${newHits.length} new escape dreams!`);
+    
+    // Refresh page to apply all settings
+    window.location.reload();
   };
 
   const handleImportReplace = () => {
@@ -178,8 +188,17 @@ export const Dashboard = ({ username, onLogout }: DashboardProps) => {
     };
     setUserData(replacedData);
     saveUserData(replacedData);
+    
+    // Apply imported settings if available
+    if (importDialog.data.settings) {
+      applyImportedSettings(importDialog.data.settings);
+    }
+    
     setImportDialog({ show: false, data: null });
     alert(`✅ Replaced with ${importDialog.data.hits.length} escape dreams!`);
+    
+    // Refresh page to apply all settings
+    window.location.reload();
   };
 
   const handleImportCancel = () => {
@@ -188,6 +207,18 @@ export const Dashboard = ({ username, onLogout }: DashboardProps) => {
 
   const handleTimezoneChange = () => {
     setTimezone(getSavedTimezone());
+  };
+
+  const applyImportedSettings = (settings: NonNullable<UserData['settings']>) => {
+    if (settings.timezone) {
+      saveTimezone(settings.timezone);
+    }
+    if (settings.theme) {
+      localStorage.setItem('calendar-theme', settings.theme);
+    }
+    if (settings.darkMode) {
+      setTheme(settings.darkMode);
+    }
   };
 
   return (

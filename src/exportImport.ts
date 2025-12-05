@@ -1,7 +1,19 @@
 import type { UserData } from './types';
+import { getSavedTimezone } from './timezone';
+import { getTheme } from './darkMode';
 
 export const exportUserData = (userData: UserData): void => {
-  const dataStr = JSON.stringify(userData, null, 2);
+  // Include current settings in export
+  const exportData: UserData = {
+    ...userData,
+    settings: {
+      timezone: getSavedTimezone(),
+      theme: localStorage.getItem('calendar-theme') || 'github-green',
+      darkMode: getTheme(),
+    },
+  };
+  
+  const dataStr = JSON.stringify(exportData, null, 2);
   const dataBlob = new Blob([dataStr], { type: 'application/json' });
   const url = URL.createObjectURL(dataBlob);
   
@@ -36,6 +48,8 @@ export const importUserData = (file: File): Promise<UserData> => {
             return;
           }
         }
+        
+        // Settings are optional, no validation needed
         
         resolve(userData);
       } catch (error) {
