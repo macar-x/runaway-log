@@ -52,8 +52,68 @@ export const Dashboard = ({ username, onLogout }: DashboardProps) => {
     
     setIsAnimating(true);
     
+    // Easter egg: 0.6% chance for boom animation
+    const isBoom = Math.random() < 0.006;
+    
     // Button animation
     if (buttonRef.current) {
+      if (isBoom) {
+        // Boom animation - more intense
+        animate(buttonRef.current, {
+          scale: [1, 1.5, 0.8, 1.2, 1],
+          rotate: [0, -15, 15, -10, 10, 0],
+          duration: 800,
+          ease: 'inOut(3)',
+        });
+
+        // Explosion effect
+        const explosion = document.createElement('div');
+        explosion.className = 'explosion';
+        explosion.textContent = '💥';
+        buttonRef.current.parentElement?.appendChild(explosion);
+        
+        animate(explosion, {
+          scale: [0, 3, 2.5],
+          rotate: [0, 360],
+          opacity: [0, 1, 0],
+          duration: 1200,
+          ease: 'out(3)',
+          onComplete: () => explosion.remove(),
+        });
+
+        // Multiple explosion particles
+        const particles = ['💥', '✨', '⭐', '🔥', '💫'];
+        for (let i = 0; i < 8; i++) {
+          const particle = document.createElement('div');
+          particle.className = 'explosion-particle';
+          particle.textContent = particles[Math.floor(Math.random() * particles.length)];
+          buttonRef.current.parentElement?.appendChild(particle);
+          
+          const angle = (Math.PI * 2 * i) / 8;
+          const distance = 150 + Math.random() * 100;
+          const tx = Math.cos(angle) * distance;
+          const ty = Math.sin(angle) * distance;
+          
+          animate(particle, {
+            translateX: [0, tx],
+            translateY: [0, ty],
+            scale: [0, 1.5, 0],
+            rotate: [0, 360 * (Math.random() > 0.5 ? 1 : -1)],
+            opacity: [1, 1, 0],
+            duration: 1000 + Math.random() * 500,
+            ease: 'out(2)',
+            onComplete: () => particle.remove(),
+          });
+        }
+
+        // Change quote to something funny
+        setQuote('BOOM! 💥 Just kidding... or am I?');
+        
+        setTimeout(() => setIsAnimating(false), 800);
+        return; // Don't record this hit
+      }
+
+      // Normal animation
       animate(buttonRef.current, {
         scale: [1, 1.3, 0.9, 1.1, 1],
         rotate: [0, -10, 10, -5, 0],

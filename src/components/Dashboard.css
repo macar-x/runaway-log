@@ -174,6 +174,28 @@
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
 }
 
+.explosion {
+  position: absolute;
+  font-size: 5rem;
+  pointer-events: none;
+  z-index: 150;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  filter: drop-shadow(0 4px 8px rgba(255, 100, 0, 0.5));
+}
+
+.explosion-particle {
+  position: absolute;
+  font-size: 2rem;
+  pointer-events: none;
+  z-index: 140;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
 .motivational-quote {
   margin-top: 2rem;
   font-size: 1.1rem;
