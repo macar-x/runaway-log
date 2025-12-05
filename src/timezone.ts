@@ -47,7 +47,14 @@ export const getBrowserTimezone = (): string => {
 export const getSavedTimezone = (): string => {
   try {
     const saved = localStorage.getItem(TIMEZONE_KEY);
-    return saved || getBrowserTimezone();
+    if (saved) {
+      return saved;
+    }
+    
+    // First time: save browser timezone and return it
+    const browserTz = getBrowserTimezone();
+    saveTimezone(browserTz);
+    return browserTz;
   } catch {
     return getBrowserTimezone();
   }
