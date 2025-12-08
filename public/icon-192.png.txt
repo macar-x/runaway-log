@@ -1,20 +1,2 @@
-This file previously held instructions for adding raster PNG icons, however the project now uses
-`favicon.svg` (the site favicon) as the primary PWA icon. The generated placeholder PNGs were
-removed and replaced by the SVG assets to preserve the intended artwork.
-
-If you need PNG fallbacks for older Android launchers or stores, generate them from `favicon.svg`:
-
-- `icon-192.png` — 192x192 pixels
-- `icon-512.png` — 512x512 pixels
-
-Example commands (ImageMagick / Inkscape):
-
-```
-magick convert public/favicon.svg -resize 192x192 public/icon-192.png
-magick convert public/favicon.svg -resize 512x512 public/icon-512.png
-
-inkscape public/favicon.svg --export-type=png --export-filename=public/icon-192.png --export-width=192 --export-height=192
-inkscape public/favicon.svg --export-type=png --export-filename=public/icon-512.png --export-width=512 --export-height=512
-```
-
-After adding PNG fallbacks, update `public/manifest.json` to include them again if desired.
+This is a placeholder. In production, replace with actual 192x192 PNG icon.
+For now, the app will work without icons but won't install as PWA properly.
