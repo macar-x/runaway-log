@@ -10,6 +10,7 @@ import { HitCalendar } from './HitCalendar';
 import { HitLogs } from './HitLogs';
 import { PrintCalendar } from './PrintCalendar';
 import { SettingsMenu } from './SettingsMenu';
+import { Statistics } from './Statistics';
 import './Dashboard.css';
 
 interface DashboardProps {
@@ -18,9 +19,12 @@ interface DashboardProps {
 }
 
 export const Dashboard = ({ username, onLogout }: DashboardProps) => {
-  const [userData, setUserData] = useState<UserData>({ username, hits: [] });
+  const [userData, setUserData] = useState<UserData>(() => {
+    const data = loadUserData(username);
+    return data || { username, hits: [] };
+  });
   const [isAnimating, setIsAnimating] = useState(false);
-  const [quote, setQuote] = useState<string>('');
+  const [quote, setQuote] = useState<string>(() => getRandomQuote());
   const [importDialog, setImportDialog] = useState<{ show: boolean; data: UserData | null }>({ show: false, data: null });
   const [showPrintDialog, setShowPrintDialog] = useState(false);
   const [currentMonth, setCurrentMonth] = useState(new Date());
@@ -30,14 +34,6 @@ export const Dashboard = ({ username, onLogout }: DashboardProps) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    const data = loadUserData(username);
-    if (data) {
-      setUserData(data);
-    }
-
-    // Set initial random quote
-    setQuote(getRandomQuote());
-
     if (containerRef.current) {
       animate(containerRef.current, {
         opacity: [0, 1],
@@ -45,7 +41,7 @@ export const Dashboard = ({ username, onLogout }: DashboardProps) => {
         ease: 'out(3)',
       });
     }
-  }, [username]);
+  }, []);
 
   const handleHit = () => {
     if (isAnimating) return;
@@ -327,15 +323,18 @@ export const Dashboard = ({ username, onLogout }: DashboardProps) => {
         </div>
 
         {userData.hits.length > 0 && (
-          <div className="data-section">
-            <HitCalendar 
-              hits={userData.hits} 
-              currentMonth={currentMonth}
-              onMonthChange={setCurrentMonth}
-              timezone={timezone}
-            />
+          <>
+            <div className="data-section">
+              <Statistics hits={userData.hits} timezone={timezone} />
+              <HitCalendar 
+                hits={userData.hits} 
+                currentMonth={currentMonth}
+                onMonthChange={setCurrentMonth}
+                timezone={timezone}
+              />
+            </div>
             <HitLogs hits={userData.hits} timezone={timezone} />
-          </div>
+          </>
         )}
       </main>
 

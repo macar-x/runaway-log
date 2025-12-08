@@ -1,7 +1,15 @@
 .dashboard-container {
   min-height: 100vh;
+  width: 100%;
   background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
   padding: 2rem;
+  box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  .dashboard-container {
+    padding: 1rem;
+  }
 }
 
 .dashboard-header {
@@ -13,6 +21,34 @@
   padding: 1rem 1.5rem;
   border-radius: 15px;
   box-shadow: var(--shadow-md);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  .dashboard-header {
+    padding: 0.75rem 1rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .user-info {
+    font-size: 1rem;
+  }
+
+  .user-icon {
+    font-size: 1.2rem;
+  }
+
+  .header-actions {
+    gap: 0.5rem;
+  }
+
+  .logout-button {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
 }
 
 .user-info {
@@ -82,7 +118,9 @@
 
 .dashboard-main {
   max-width: 1400px;
+  width: 100%;
   margin: 0 auto;
+  box-sizing: border-box;
 }
 
 .data-section {
@@ -90,11 +128,20 @@
   grid-template-columns: 1fr 1fr;
   gap: 2rem;
   align-items: start;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 @media (max-width: 1024px) {
   .data-section {
     grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .data-section {
+    gap: 1rem;
   }
 }
 
@@ -106,6 +153,46 @@
   margin-bottom: 2rem;
   text-align: center;
   position: relative;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  .hit-section {
+    padding: 2rem 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .section-title {
+    font-size: 1.5rem;
+    margin: 0 0 1.5rem 0;
+  }
+
+  .hit-button {
+    width: 160px;
+    height: 160px;
+  }
+
+  .hit-button-text {
+    font-size: 2rem;
+  }
+
+  .hit-button-icon {
+    font-size: 1.5rem;
+  }
+
+  .motivational-quote {
+    font-size: 0.95rem;
+    padding: 0 0.5rem;
+  }
+
+  .hit-count {
+    font-size: 1.1rem;
+  }
+
+  .hit-count strong {
+    font-size: 1.3rem;
+  }
 }
 
 .section-title {

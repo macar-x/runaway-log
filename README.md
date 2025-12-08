@@ -8,12 +8,17 @@ A simple app to track when you dream of escaping work, meetings, or routine. Cli
 
 ## Features
 
-- 🏃 One-click tracking
-- 📅 90-day calendar heatmap
-- 📊 Detailed log with timestamps
+- 🏃 One-click tracking with animations
+- 📊 Statistics dashboard (streaks, trends, peak times)
+- 📅 90-day calendar heatmap with color themes
+- 📝 Detailed log with timestamps
 - 💭 Motivational quotes
+- 🌙 Dark mode support
+- 📱 Progressive Web App (install & offline support)
 - 💾 Private (localStorage only)
-- 📱 Mobile and desktop
+- 📤 Export/Import data
+- 🖨️ Print calendar
+- 🌍 Timezone support
 
 ## Quick Start
 
@@ -43,7 +48,8 @@ Visit `http://localhost:8080`
 
 ## Tech Stack
 
-React 18 + TypeScript + Vite + anime.js  
+React 19 + TypeScript + Vite + anime.js + Vitest  
+PWA with Workbox + Service Worker  
 Nginx Alpine + Docker (~53MB image)
 
 ## Requirements

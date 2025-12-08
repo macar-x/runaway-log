@@ -1,17 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Login } from './components/Login';
 import { Dashboard } from './components/Dashboard';
 import './App.css';
 
 function App() {
-  const [username, setUsername] = useState<string | null>(null);
-
-  useEffect(() => {
-    const savedUsername = sessionStorage.getItem('runawaylog-username');
-    if (savedUsername) {
-      setUsername(savedUsername);
-    }
-  }, []);
+  const [username, setUsername] = useState<string | null>(() => {
+    return sessionStorage.getItem('runawaylog-username');
+  });
 
   const handleLogin = (user: string) => {
     setUsername(user);

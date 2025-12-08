@@ -2,7 +2,7 @@ const TIMEZONE_KEY = 'runawaylog-timezone';
 
 // Get list of common timezones
 export const getTimezones = (): string[] => {
-  return [
+  const commonTimezones = [
     'UTC',
     'America/New_York',
     'America/Chicago',
@@ -32,6 +32,14 @@ export const getTimezones = (): string[] => {
     'Australia/Melbourne',
     'Pacific/Auckland',
   ];
+
+  // Ensure browser timezone is in the list
+  const browserTz = getBrowserTimezone();
+  if (!commonTimezones.includes(browserTz)) {
+    return [browserTz, ...commonTimezones];
+  }
+
+  return commonTimezones;
 };
 
 // Get browser's timezone

@@ -52,7 +52,7 @@ export const importUserData = (file: File): Promise<UserData> => {
         // Settings are optional, no validation needed
         
         resolve(userData);
-      } catch (error) {
+      } catch {
         reject(new Error('Failed to parse JSON file'));
       }
     };
