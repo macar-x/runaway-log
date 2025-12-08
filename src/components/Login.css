@@ -15,17 +15,15 @@
   border-radius: 20px;
   box-shadow: var(--shadow-lg);
   text-align: center;
-  min-width: 350px;
-  max-width: 90%;
   width: 100%;
+  max-width: 450px;
   box-sizing: border-box;
 }
 
 @media (max-width: 768px) {
   .login-card {
     padding: 2rem 1.5rem;
-    min-width: unset;
-    max-width: 100%;
+    max-width: 90%;
   }
 
   .login-title {
