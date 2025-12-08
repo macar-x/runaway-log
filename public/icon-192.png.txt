@@ -1,12 +1,20 @@
-This file is a placeholder. To ensure proper PWA home-screen icons on Android and other platforms,
-add PNG files to this folder with the following names and sizes:
+This file previously held instructions for adding raster PNG icons, however the project now uses
+`favicon.svg` (the site favicon) as the primary PWA icon. The generated placeholder PNGs were
+removed and replaced by the SVG assets to preserve the intended artwork.
 
-- `icon-192.png` — 192x192 pixels (used for many Android home-screen tiles)
-- `icon-512.png` — 512x512 pixels (used for Play Store / higher-resolution tiles)
+If you need PNG fallbacks for older Android launchers or stores, generate them from `favicon.svg`:
 
-Tips:
-- Export PNGs from `icon.svg` (recommended) using a graphics tool or `rsvg-convert`/`inkscape`/Figma.
-- Place the PNG files here and restore or add PNG entries to `public/manifest.json` if you prefer raster icons.
+- `icon-192.png` — 192x192 pixels
+- `icon-512.png` — 512x512 pixels
 
-Note: The manifest currently references `icon.svg` and `favicon.svg` as fallbacks, but some platforms
-(especially older Android versions) require PNG images for proper home-screen icons.
+Example commands (ImageMagick / Inkscape):
+
+```
+magick convert public/favicon.svg -resize 192x192 public/icon-192.png
+magick convert public/favicon.svg -resize 512x512 public/icon-512.png
+
+inkscape public/favicon.svg --export-type=png --export-filename=public/icon-192.png --export-width=192 --export-height=192
+inkscape public/favicon.svg --export-type=png --export-filename=public/icon-512.png --export-width=512 --export-height=512
+```
+
+After adding PNG fallbacks, update `public/manifest.json` to include them again if desired.

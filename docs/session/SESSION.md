@@ -48,4 +48,10 @@ Where to find files changed
 - [index.html](index.html)
 - [public/icon-192.png.txt](public/icon-192.png.txt)
 
+Additional change
+-----------------
+After user feedback, placeholder raster PNGs were removed and the manifest updated to use
+`favicon.svg` and `icon.svg` as the primary PWA icons. If you prefer raster fallbacks, generate
+`icon-192.png` and `icon-512.png` from `public/favicon.svg` and update the manifest accordingly.
+
 If you want, I can generate placeholder PNGs and update the manifest for you — tell me whether to add them now.
