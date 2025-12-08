@@ -10,8 +10,15 @@ export type UserSettings = {
   darkMode?: 'light' | 'dark';
 };
 
+export type UserProfile = {
+  email?: string;
+  registrationDate: number;
+  avatarUrl?: string;
+};
+
 export type UserData = {
   username: string;
   hits: HitLog[];
   settings?: UserSettings;
+  profile?: UserProfile;
 };

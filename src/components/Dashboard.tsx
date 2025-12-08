@@ -16,9 +16,10 @@ import './Dashboard.css';
 interface DashboardProps {
   username: string;
   onLogout: () => void;
+  showHeader?: boolean;
 }
 
-export const Dashboard = ({ username, onLogout }: DashboardProps) => {
+export const Dashboard = ({ username, onLogout, showHeader = true }: DashboardProps) => {
   const [userData, setUserData] = useState<UserData>(() => {
     const data = loadUserData(username);
     return data || { username, hits: [] };
@@ -279,30 +280,40 @@ export const Dashboard = ({ username, onLogout }: DashboardProps) => {
 
   return (
     <div className="dashboard-container" ref={containerRef}>
-      <header className="dashboard-header">
-        <div className="user-info">
-          <span className="user-icon">👤</span>
-          <span className="username">{username}</span>
-        </div>
-        <div className="header-actions">
-          <input
-            ref={fileInputRef}
-            type="file"
-            accept=".json"
-            onChange={handleImportFile}
-            style={{ display: 'none' }}
-          />
-          <SettingsMenu
-            onExport={handleExport}
-            onImport={handleImportClick}
-            onPrint={() => setShowPrintDialog(true)}
-            onTimezoneChange={handleTimezoneChange}
-          />
-          <button onClick={onLogout} className="logout-button">
-            Logout
-          </button>
-        </div>
-      </header>
+      {showHeader && (
+        <header className="dashboard-header">
+          <div className="user-info">
+            <span className="user-icon">👤</span>
+            <span className="username">{username}</span>
+          </div>
+          <div className="header-actions">
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept=".json"
+              onChange={handleImportFile}
+              style={{ display: 'none' }}
+            />
+            <SettingsMenu
+              onExport={handleExport}
+              onImport={handleImportClick}
+              onPrint={() => setShowPrintDialog(true)}
+              onTimezoneChange={handleTimezoneChange}
+            />
+            <button onClick={onLogout} className="logout-button">
+              Logout
+            </button>
+          </div>
+        </header>
+      )}
+
+      <input
+        ref={fileInputRef}
+        type="file"
+        accept=".json"
+        onChange={handleImportFile}
+        style={{ display: 'none' }}
+      />
 
       <main className="dashboard-main">
         <div className="hit-section">

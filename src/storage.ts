@@ -53,7 +53,20 @@ export const saveUserData = (userData: UserData): void => {
 
 export const addHit = (username: string): HitLog | null => {
   try {
-    const userData = loadUserData(username) || { username, hits: [] };
+    const userData = loadUserData(username) || { 
+      username, 
+      hits: [],
+      profile: {
+        registrationDate: Date.now(),
+      }
+    };
+    
+    // Ensure profile exists with registration date for existing users
+    if (!userData.profile) {
+      userData.profile = {
+        registrationDate: Date.now(),
+      };
+    }
     
     // Store timestamp in UTC (Date.now() is always UTC)
     const timestamp = getCurrentTimestamp();

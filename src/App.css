@@ -3,3 +3,8 @@
   width: 100%;
   overflow-x: hidden;
 }
+
+.pro-mode {
+  display: flex;
+  flex-direction: column;
+}
