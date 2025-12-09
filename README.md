@@ -1,39 +1,30 @@
-# RunawayLog 🏃
+ # RunawayLog 🏃
 
 Track your desire to escape the daily grind. Every click represents a dream of breaking free.
 
 ## What is this?
 
-A simple app to track when you dream of escaping work, meetings, or routine. Click the button, see patterns in a calendar heatmap, and get motivational quotes. All data stays private in your browser.
+A simple, privacy-focused web application that helps you track your desire to escape the daily grind. Click the button, see patterns in a calendar heatmap, and get motivational quotes. All data stays private in your browser's localStorage.
 
-## Features
+## Project Status
 
-### Free Mode (Default)
-- 🏃 One-click tracking with animations
-- 📊 Statistics dashboard (streaks, trends, peak times)
-- 📅 90-day calendar heatmap with color themes
-- 📝 Detailed log with timestamps
-- 💭 Motivational quotes
-- 🌙 Dark mode support
-- 📱 Progressive Web App (install & offline support)
-- 💾 Private (localStorage only)
-- 📤 Export/Import data
-- 🖨️ Print calendar
-- 🌍 Timezone support
-- 🎯 Unified navigation bar
+⚠️ **Note**: This project is currently in its early stages of development. Changes may be frequent and documentation might not always be up-to-date. Please check the [GitHub Issues](https://github.com/macar-x/runaway-log/issues) and [Discussions](https://github.com/macar-x/runaway-log/discussions) for the latest updates.
 
-### Pro Mode (New!)
-- ⭐ All Free mode features
-- 🎮 Multiple game modes (Card Drop & more coming)
-- 🗺️ Multi-page navigation with Games, Storage, Releases, About
-- ☁️ Remote storage options (WebDAV, Firebase, Supabase - coming soon)
-- 📋 Release notes page
-- ℹ️ About page
-- 🔄 Easy toggle between Free and Pro modes
+## Key Features
+
+- One-click tracking with animations
+- Statistics dashboard with streaks and trends
+- 90-day calendar heatmap with color themes
+- Dark mode support
+- Progressive Web App (PWA) with offline support
+- Export/Import data functionality
+- Print calendar feature
+- Multi-language support
+- Free and Pro modes available
 
 ## Quick Start
 
-**Local Development:**
+### Local Development
 ```bash
 git clone https://github.com/macar-x/runaway-log.git
 cd runaway-log
@@ -42,7 +33,7 @@ npm run dev
 ```
 Visit `http://localhost:5173`
 
-**Docker:**
+### Docker
 ```bash
 docker compose up -d
 ```
@@ -50,13 +41,12 @@ Visit `http://localhost:8080`
 
 ## Documentation
 
-- [Configuration](docs/CONFIGURATION.md) - Environment variables and setup
-- [Architecture](docs/ARCHITECTURE.md) - Port mapping and nginx configuration
-- [Deployment](docs/DEPLOYMENT.md) - Docker and cloud deployment
-- [Tech Stack](docs/TECH_STACK.md) - Technologies and dependencies
-- [Pro Mode](docs/PRO_MODE.md) - Pro mode features and architecture
-- [Rebranding](docs/REBRANDING.md) - Project history and naming
-- [TODO](docs/TODO.md) - Planned features
+For comprehensive documentation, please visit our [Wiki](docs/index.md) which includes:
+- User guides and tutorials
+- Developer documentation
+- Deployment guides
+- Contribution guidelines
+- Project roadmap
 
 ## Tech Stack
 
@@ -66,7 +56,7 @@ Nginx Alpine + Docker (~53MB image)
 
 ## Requirements
 
-- **Dev:** Node.js 20+, npm 10+
+- **Development:** Node.js 20+, npm 10+
 - **Production:** Docker + Docker Compose
 
 ## License
@@ -76,3 +66,7 @@ MIT
 ---
 
 Built with **Ona**, the AI software engineering agent.
+
+## Translations
+
+- [中文](README_CN.md)
