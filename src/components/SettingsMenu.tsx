@@ -104,23 +104,18 @@ export const SettingsMenu = ({ onExport, onImport, onPrint, onTimezoneChange }: 
 
           <div className="settings-section">
             <h3 className="settings-section-title">Calendar Theme</h3>
-            <div className="theme-options">
-              {colorThemes.map((theme) => (
-                <button
-                  key={theme.id}
-                  onClick={() => handleThemeChange(theme.id)}
-                  className={`theme-option ${selectedTheme === theme.id ? 'active' : ''}`}
-                >
-                  <div className="theme-preview">
-                    <span style={{ background: theme.colors.intensity1 }} className="theme-color"></span>
-                    <span style={{ background: theme.colors.intensity2 }} className="theme-color"></span>
-                    <span style={{ background: theme.colors.intensity3 }} className="theme-color"></span>
-                    <span style={{ background: theme.colors.intensity4 }} className="theme-color"></span>
-                  </div>
-                  <span className="theme-name">{theme.name}</span>
-                  {selectedTheme === theme.id && <span className="theme-check">✓</span>}
-                </button>
-              ))}
+            <div className="theme-selector">
+              <select 
+                value={selectedTheme} 
+                onChange={(e) => handleThemeChange(e.target.value)}
+                className="theme-select"
+              >
+                {colorThemes.map((theme) => (
+                  <option key={theme.id} value={theme.id}>
+                    {theme.name}
+                  </option>
+                ))}
+              </select>
             </div>
           </div>
 

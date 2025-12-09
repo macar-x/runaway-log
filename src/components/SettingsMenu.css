@@ -223,11 +223,13 @@
   text-align: center;
 }
 
-.timezone-selector {
+.timezone-selector,
+.theme-selector {
   width: 100%;
 }
 
-.timezone-select {
+.timezone-select,
+.theme-select {
   width: 100%;
   padding: 0.75rem;
   background: var(--bg-secondary);
@@ -241,12 +243,14 @@
   font-family: inherit;
 }
 
-.timezone-select:hover {
+.timezone-select:hover,
+.theme-select:hover {
   background: var(--bg-tertiary);
   border-color: var(--border-color-hover);
 }
 
-.timezone-select:focus {
+.timezone-select:focus,
+.theme-select:focus {
   outline: none;
   border-color: var(--accent-primary);
   box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);

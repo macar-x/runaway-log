@@ -31,6 +31,13 @@ This document tracks planned features and improvements for RunawayLog.
   - Optimized for A4/Letter paper
   - Print-friendly CSS (black & white option)
 
+### Recent Changes (2025-12-09)
+
+- [x] **Settings Menu Improvements** ✅
+  - Added Close button to settings menu for better mobile experience
+  - Changed Calendar Theme selector from button list to dropdown menu for cleaner UI
+  - Updated SettingsMenu CSS to share styles between timezone and theme selectors
+
 ### Completed
 
 - [x] **Settings Menu** ✅
