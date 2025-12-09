@@ -27,4 +27,4 @@ dist-ssr
 *.sw?
 
 # Copilot
-/docs/DEV_NOTE.md
+session.md

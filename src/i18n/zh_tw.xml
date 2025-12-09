@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<translations>
+  <!-- Dashboard -->
+  <dashboard>
+    <title>想要逃離嗎？</title>
+    <run_button>逃跑</run_button>
+    <hit_count>逃跑次數：<strong>{count}</strong></hit_count>
+    <logout>退出登錄</logout>
+    <settings>⚙️ 設定</settings>
+  </dashboard>
+
+  <!-- Settings Menu -->
+  <settings_menu>
+    <title>設定</title>
+    <appearance>外觀</appearance>
+    <dark_mode>深色模式</dark_mode>
+    <light_mode>淺色模式</light_mode>
+    <calendar_theme>日曆主題</calendar_theme>
+    <timezone>時區</timezone>
+    <actions>操作</actions>
+    <export_data>匯出資料</export_data>
+    <import_data>匯入資料</import_data>
+    <print_calendar>列印日曆</print_calendar>
+    <close>關閉</close>
+  </settings_menu>
+
+  <!-- Import Dialog -->
+  <import_dialog>
+    <title>匯入資料</title>
+    <from>來源：</from>
+    <escape_dreams>逃跑次數：</escape_dreams>
+    <warning>⚠️ 此資料來自不同使用者 ({username})。<br/>資料將匯入到您當前的帳戶 ({currentUsername})。<br/>如果您想匯入到 "{username}"，請先退出當前帳戶並以該使用者身份登入。</warning>
+    <merge>將新資料新增到當前資料中</merge>
+    <replace>用匯入的資料替換所有當前資料</replace>
+    <merge_button>合併</merge_button>
+    <replace_button>替換</replace_button>
+    <cancel_button>取消</cancel_button>
+  </import_dialog>
+
+  <!-- Statistics -->
+  <statistics>
+    <title>統計資訊</title>
+    <total>總計</total>
+    <average_per_day>每日平均</average_per_day>
+    <current_streak>當前連續</current_streak>
+    <longest_streak>最長連續</longest_streak>
+    <most_active_day>最活躍日</most_active_day>
+    <peak_time>高峰時間</peak_time>
+    <peak_day>高峰日</peak_day>
+  </statistics>
+
+  <!-- Error Messages -->
+  <errors>
+    <import_failed>❌ 匯入失敗：{error}</import_failed>
+    <import_merged>✅ 已合併 {count} 條新的逃跑記錄！</import_merged>
+    <import_replaced>✅ 已替換為 {count} 條逃跑記錄！</import_replaced>
+  </errors>
+
+  <!-- Easter Eggs -->
+  <easter_eggs>
+    <boom_quote>BOOM! 💥 開玩笑的...或者我是認真的？</boom_quote>
+  </easter_eggs>
+
+  <!-- Navigation -->
+  <navigation>
+    <home>首頁</home>
+    <about>關於</about>
+    <storage>儲存</storage>
+    <releases>更新</releases>
+    <profile>個人資料</profile>
+    <games>遊戲</games>
+  </navigation>
+</translations>

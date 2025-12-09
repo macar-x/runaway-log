@@ -1,26 +1,44 @@
- # RunawayLog 🏃
+ # The Runaway Emulator - 《跑路模拟器》🏃
 
-Track your desire to escape the daily grind. Every click represents a dream of breaking free.
+A personal hobby project designed to provide an escape window from the boredom, irrationality, and hopelessness of daily work.
 
 ## What is this?
 
-A simple, privacy-focused web application that helps you track your desire to escape the daily grind. Click the button, see patterns in a calendar heatmap, and get motivational quotes. All data stays private in your browser's localStorage.
+The Runaway Emulator is a web application that allows you to vent and escape from the daily grind through interactive gameplay. Currently, it features a simple Run button that makes a character run while recording and displaying your activity. In the future, it will evolve into a fully-fledged game space with multiple buttons, story progression, random events, and support for multiple playthroughs.
 
-## Project Status
+## Project Nature
 
-⚠️ **Note**: This project is currently in its early stages of development. Changes may be frequent and documentation might not always be up-to-date. Please check the [GitHub Issues](https://github.com/macar-x/runaway-log/issues) and [Discussions](https://github.com/macar-x/runaway-log/discussions) for the latest updates.
+This project is developed during personal leisure time, assisted by multiple AI agents, especially for the code part. Currently, there are no manual code changes.
 
-## Key Features
+## Core Vision
 
-- One-click tracking with animations
+Create a game-like experience where:
+- Players can find relief from work stress
+- The narrative progresses based on real-world time
+- Random events keep gameplay fresh
+- Multiple playthroughs are encouraged with data inheritance and difficulty adjustments
+- Cloud storage is the primary data model, with self-host and localStorage options available
+
+## Current Features
+
+- One-click Run button with character animations
 - Statistics dashboard with streaks and trends
 - 90-day calendar heatmap with color themes
 - Dark mode support
 - Progressive Web App (PWA) with offline support
 - Export/Import data functionality
 - Print calendar feature
-- Multi-language support
-- Free and Pro modes available
+
+## Future Plans
+
+- Transform into a more game-like space with multiple interactive buttons
+- Implement main story progression tied to real-world time
+- Add random events and mini-games
+- Support multiple playthroughs (NG+, NG++) with data inheritance
+- Cloud storage with MariaDB (primary)
+- Self-host option for privacy-focused users
+- Local storage compatibility for offline use
+- Docker-based deployment as the primary mode
 
 ## Quick Start
 
@@ -39,15 +57,6 @@ docker compose up -d
 ```
 Visit `http://localhost:8080`
 
-## Documentation
-
-For comprehensive documentation, please visit our [Wiki](docs/index.md) which includes:
-- User guides and tutorials
-- Developer documentation
-- Deployment guides
-- Contribution guidelines
-- Project roadmap
-
 ## Tech Stack
 
 React 19 + TypeScript + Vite + anime.js + Vitest  
@@ -65,7 +74,7 @@ MIT
 
 ---
 
-Built with **Ona**, the AI software engineering agent.
+Built with AI assistance.
 
 ## Translations
 

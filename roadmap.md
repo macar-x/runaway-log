@@ -1,6 +1,26 @@
-# TODO List
+# Roadmap
 
-This document tracks planned features and improvements for RunawayLog.
+This document tracks planned features and improvements for **The Runaway Emulator** (《跑路模拟器》).
+
+## 🎯 Core Vision
+
+Create a game-like experience where:
+- Players can find relief from work stress
+- The narrative progresses based on real-world time
+- Random events keep gameplay fresh
+- Multiple playthroughs are encouraged with data inheritance and difficulty adjustments
+- Cloud storage is the primary data model, with self-host and localStorage options available
+
+## 🏗️ Project Evolution
+
+### Current State
+Simple web app with a Run button that makes a character run while recording activity.
+
+### Next Phase (Game Transformation)
+Evolve into a fully-fledged game space with multiple buttons, story progression, and random events.
+
+### Long-term Vision
+Support for multiple playthroughs, cloud storage, and self-host options.
 
 ## 🎨 UI/UX Enhancements
 
@@ -109,6 +129,21 @@ This document tracks planned features and improvements for RunawayLog.
 
 ## 🔧 Technical Improvements
 
+### High Priority
+
+- [ ] **Cloud Storage System**
+  - Implement MariaDB database for primary data storage
+  - Add user authentication for cloud storage
+  - Implement API endpoints for data synchronization
+  - Support for Docker-based deployment
+
+- [ ] **Self-host & Local Storage Support**
+  - Optional self-host deployment option
+  - Compatible localStorage mode for offline use
+  - Data import/export between different storage modes
+
+### Medium Priority
+
 - [x] **Progressive Web App (PWA)** ✅
   - Service worker for offline support
   - Install as standalone app
@@ -116,12 +151,6 @@ This document tracks planned features and improvements for RunawayLog.
   - Manifest with icons and metadata
   - [ ] Push notifications (optional)
   - [ ] Background sync
-
-- [ ] **Data Backup & Sync**
-  - Auto-backup to cloud (optional)
-  - Sync across devices
-  - Backup reminders
-  - Restore from backup
 
 - [ ] **Performance Optimization**
   - Lazy load calendar days
@@ -173,19 +202,55 @@ This document tracks planned features and improvements for RunawayLog.
   - Export before delete
   - Privacy policy page
 
-## 🎯 Gamification
+## � Game Features
+
+### High Priority
+
+- [ ] **Multiple Interactive Buttons**
+  - Expand beyond just a Run button
+  - Add various action buttons with different effects
+  - Each button triggers unique animations and story progress
+
+- [ ] **Story Progression System**
+  - Narrative that advances based on real-world time
+  - Character development and plot twists
+  - Multiple endings based on player choices
+
+- [ ] **Random Events System**
+  - Daily random events that affect gameplay
+  - Event chains with branching outcomes
+  - Special events for holidays and milestones
+
+### Medium Priority
+
+- [ ] **Multiple Playthroughs Support**
+  - NG+ (New Game Plus) mode
+  - Data inheritance between playthroughs
+  - Difficulty adjustments for each playthrough
+  - Unlockable content for repeated play
+
+- [ ] **Mini-Games Integration**
+  - Add simple mini-games for variety
+  - Mini-games that tie into the main narrative
+  - Rewards for completing mini-games
+
+## �🎯 Gamification
+
+### Medium Priority
 
 - [ ] **Achievements System**
-  - Unlock badges for milestones
-  - Streak tracking
-  - Daily challenges
+  - Unlock badges for milestones and story progress
+  - Streak tracking and rewards
+  - Daily challenges with unique prizes
   - Leaderboard (optional, anonymous)
 
+### Low Priority
+
 - [ ] **Customization**
-  - Custom button text
-  - Custom emoji for running person
+  - Custom button text and appearances
+  - Custom character skins and animations
   - Custom quotes (user-added)
-  - Profile customization
+  - Profile customization options
 
 ## 📝 Content
 

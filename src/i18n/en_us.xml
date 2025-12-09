@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<translations>
+  <!-- Dashboard -->
+  <dashboard>
+    <title>Dreaming of Escape?</title>
+    <run_button>RUN</run_button>
+    <hit_count>Escape Dreams: <strong>{count}</strong></hit_count>
+    <logout>Logout</logout>
+    <settings>⚙️ Settings</settings>
+  </dashboard>
+
+  <!-- Settings Menu -->
+  <settings_menu>
+    <title>Settings</title>
+    <appearance>Appearance</appearance>
+    <dark_mode>Dark Mode</dark_mode>
+    <light_mode>Light Mode</light_mode>
+    <calendar_theme>Calendar Theme</calendar_theme>
+    <timezone>Timezone</timezone>
+    <actions>Actions</actions>
+    <export_data>Export Data</export_data>
+    <import_data>Import Data</import_data>
+    <print_calendar>Print Calendar</print_calendar>
+    <close>Close</close>
+  </settings_menu>
+
+  <!-- Import Dialog -->
+  <import_dialog>
+    <title>Import Data</title>
+    <from>From:</from>
+    <escape_dreams>Escape Dreams:</escape_dreams>
+    <warning>⚠️ This data is from a different user ({username}).<br/>The data will be imported to your current account ({currentUsername}).<br/>If you want to import to "{username}", please logout and login as that user first.</warning>
+    <merge>Add new dreams to your current data</merge>
+    <replace>Replace all your data with imported data</replace>
+    <merge_button>Merge</merge_button>
+    <replace_button>Replace</replace_button>
+    <cancel_button>Cancel</cancel_button>
+  </import_dialog>
+
+  <!-- Statistics -->
+  <statistics>
+    <title>Statistics</title>
+    <total>Total</total>
+    <average_per_day>Average per Day</average_per_day>
+    <current_streak>Current Streak</current_streak>
+    <longest_streak>Longest Streak</longest_streak>
+    <most_active_day>Most Active Day</most_active_day>
+    <peak_time>Peak Time</peak_time>
+    <peak_day>Peak Day</peak_day>
+  </statistics>
+
+  <!-- Error Messages -->
+  <errors>
+    <import_failed>❌ Import failed: {error}</import_failed>
+    <import_merged>✅ Merged {count} new escape dreams!</import_merged>
+    <import_replaced>✅ Replaced with {count} escape dreams!</import_replaced>
+  </errors>
+
+  <!-- Easter Eggs -->
+  <easter_eggs>
+    <boom_quote>BOOM! 💥 Just kidding... or am I?</boom_quote>
+  </easter_eggs>
+
+  <!-- Navigation -->
+  <navigation>
+    <home>Home</home>
+    <about>About</about>
+    <storage>Storage</storage>
+    <releases>Releases</releases>
+    <profile>Profile</profile>
+    <games>Games</games>
+  </navigation>
+</translations>

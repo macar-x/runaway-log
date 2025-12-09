@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { colorThemes, getThemeById, applyTheme } from '../themes';
 import { getTheme, setTheme, type Theme } from '../darkMode';
 import { getTimezones, getSavedTimezone, saveTimezone, getTimezoneDisplayName } from '../timezone';
+import { i18n } from '../i18n/i18n';
 import './SettingsMenu.css';
 
 interface SettingsMenuProps {
@@ -79,20 +80,20 @@ export const SettingsMenu = ({ onExport, onImport, onPrint, onTimezoneChange }: 
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="settings-button"
-        title="Settings"
-        aria-label="Settings menu"
+        title={i18n.t('settings_menu.title')}
+        aria-label={i18n.t('settings_menu.title')}
       >
-        ⚙️ Settings
+        {i18n.t('dashboard.settings')}
       </button>
 
       {isOpen && (
         <div className="settings-dropdown">
           <div className="settings-section">
-            <h3 className="settings-section-title">Appearance</h3>
+            <h3 className="settings-section-title">{i18n.t('settings_menu.appearance')}</h3>
             <button onClick={handleDarkModeToggle} className="dark-mode-toggle">
               <span className="toggle-icon">{darkMode === 'dark' ? '🌙' : '☀️'}</span>
               <span className="toggle-label">
-                {darkMode === 'dark' ? 'Dark Mode' : 'Light Mode'}
+                {darkMode === 'dark' ? i18n.t('settings_menu.dark_mode') : i18n.t('settings_menu.light_mode')}
               </span>
               <div className={`toggle-switch ${darkMode === 'dark' ? 'active' : ''}`}>
                 <div className="toggle-slider"></div>
@@ -103,7 +104,7 @@ export const SettingsMenu = ({ onExport, onImport, onPrint, onTimezoneChange }: 
           <div className="settings-divider"></div>
 
           <div className="settings-section">
-            <h3 className="settings-section-title">Calendar Theme</h3>
+            <h3 className="settings-section-title">{i18n.t('settings_menu.calendar_theme')}</h3>
             <div className="theme-selector">
               <select 
                 value={selectedTheme} 
@@ -122,7 +123,7 @@ export const SettingsMenu = ({ onExport, onImport, onPrint, onTimezoneChange }: 
           <div className="settings-divider"></div>
 
           <div className="settings-section">
-            <h3 className="settings-section-title">Timezone</h3>
+            <h3 className="settings-section-title">{i18n.t('settings_menu.timezone')}</h3>
             <div className="timezone-selector">
               <select 
                 value={selectedTimezone} 
@@ -141,22 +142,22 @@ export const SettingsMenu = ({ onExport, onImport, onPrint, onTimezoneChange }: 
           <div className="settings-divider"></div>
 
           <div className="settings-section">
-            <h3 className="settings-section-title">Actions</h3>
+            <h3 className="settings-section-title">{i18n.t('settings_menu.actions')}</h3>
             <button onClick={() => handleMenuAction(onExport)} className="settings-action-btn">
               <span className="action-icon">📥</span>
-              <span>Export Data</span>
+              <span>{i18n.t('settings_menu.export_data')}</span>
             </button>
             <button onClick={() => handleMenuAction(onImport)} className="settings-action-btn">
               <span className="action-icon">📤</span>
-              <span>Import Data</span>
+              <span>{i18n.t('settings_menu.import_data')}</span>
             </button>
             <button onClick={() => handleMenuAction(onPrint)} className="settings-action-btn">
               <span className="action-icon">🖨️</span>
-              <span>Print Calendar</span>
+              <span>{i18n.t('settings_menu.print_calendar')}</span>
             </button>
             <button onClick={() => setIsOpen(false)} className="settings-action-btn">
               <span className="action-icon">✖️</span>
-              <span>Close</span>
+              <span>{i18n.t('settings_menu.close')}</span>
             </button>
           </div>
         </div>

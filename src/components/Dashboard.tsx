@@ -11,6 +11,7 @@ import { HitLogs } from './HitLogs';
 import { PrintCalendar } from './PrintCalendar';
 import { SettingsMenu } from './SettingsMenu';
 import { Statistics } from './Statistics';
+import { i18n } from '../i18n/i18n';
 import './Dashboard.css';
 
 interface DashboardProps {
@@ -104,7 +105,7 @@ export const Dashboard = ({ username, onLogout, showHeader = true }: DashboardPr
         }
 
         // Change quote to something funny
-        setQuote('BOOM! 💥 Just kidding... or am I?');
+        setQuote(i18n.t('easter_eggs.boom_quote'));
         
         setTimeout(() => setIsAnimating(false), 800);
         return; // Don't record this hit
@@ -203,7 +204,7 @@ export const Dashboard = ({ username, onLogout, showHeader = true }: DashboardPr
       const importedData = await importUserData(file);
       setImportDialog({ show: true, data: importedData });
     } catch (error) {
-      alert(`❌ Import failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
+      alert(i18n.t('errors.import_failed', { error: error instanceof Error ? error.message : 'Unknown error' }));
     }
 
     // Reset file input
@@ -230,7 +231,7 @@ export const Dashboard = ({ username, onLogout, showHeader = true }: DashboardPr
     }
     
     setImportDialog({ show: false, data: null });
-    alert(`✅ Merged ${newHits.length} new escape dreams!`);
+    alert(i18n.t('errors.import_merged', { count: newHits.length }));
     
     // Refresh page to apply all settings
     window.location.reload();
@@ -252,7 +253,7 @@ export const Dashboard = ({ username, onLogout, showHeader = true }: DashboardPr
     }
     
     setImportDialog({ show: false, data: null });
-    alert(`✅ Replaced with ${importDialog.data.hits.length} escape dreams!`);
+    alert(i18n.t('errors.import_replaced', { count: importDialog.data.hits.length }));
     
     // Refresh page to apply all settings
     window.location.reload();
@@ -301,7 +302,7 @@ export const Dashboard = ({ username, onLogout, showHeader = true }: DashboardPr
               onTimezoneChange={handleTimezoneChange}
             />
             <button onClick={onLogout} className="logout-button">
-              Logout
+              {i18n.t('dashboard.logout')}
             </button>
           </div>
         </header>
@@ -317,20 +318,18 @@ export const Dashboard = ({ username, onLogout, showHeader = true }: DashboardPr
 
       <main className="dashboard-main">
         <div className="hit-section">
-          <h2 className="section-title">Dreaming of Escape?</h2>
+          <h2 className="section-title">{i18n.t('dashboard.title')}</h2>
           <button
             ref={buttonRef}
             onClick={handleHit}
             className="hit-button"
             disabled={isAnimating}
           >
-            <span className="hit-button-text">RUN</span>
+            <span className="hit-button-text">{i18n.t('dashboard.run_button')}</span>
             <span className="hit-button-icon">🏃</span>
           </button>
           <p className="motivational-quote">"{quote}"</p>
-          <p className="hit-count">
-            Escape Dreams: <strong>{userData.hits.length}</strong>
-          </p>
+          <p className="hit-count" dangerouslySetInnerHTML={{ __html: i18n.t('dashboard.hit_count', { count: userData.hits.length }) }} />
         </div>
 
         {userData.hits.length > 0 && (
@@ -362,33 +361,29 @@ export const Dashboard = ({ username, onLogout, showHeader = true }: DashboardPr
       {importDialog.show && importDialog.data && (
         <div className="import-dialog-overlay">
           <div className="import-dialog">
-            <h3 className="import-dialog-title">Import Data</h3>
+            <h3 className="import-dialog-title">{i18n.t('import_dialog.title')}</h3>
             <div className="import-dialog-content">
               <p className="import-info">
-                <strong>From:</strong> {importDialog.data.username}<br />
-                <strong>Escape Dreams:</strong> {importDialog.data.hits.length}
+                <strong>{i18n.t('import_dialog.from')}</strong> {importDialog.data.username}<br />
+                <strong>{i18n.t('import_dialog.escape_dreams')}</strong> {importDialog.data.hits.length}
               </p>
               {importDialog.data.username !== username && (
-                <p className="import-warning">
-                  ⚠️ This data is from a different user ({importDialog.data.username}).<br />
-                  The data will be imported to your current account ({username}).<br />
-                  If you want to import to "{importDialog.data.username}", please logout and login as that user first.
-                </p>
+                <p className="import-warning" dangerouslySetInnerHTML={{ __html: i18n.t('import_dialog.warning', { username: importDialog.data.username, currentUsername: username }) }} />
               )}
               <p className="import-description">
-                <strong>Merge:</strong> Add new dreams to your current data<br />
-                <strong>Replace:</strong> Replace all your data with imported data
+                <strong>Merge:</strong> {i18n.t('import_dialog.merge')}<br />
+                <strong>Replace:</strong> {i18n.t('import_dialog.replace')}
               </p>
             </div>
             <div className="import-dialog-actions">
               <button onClick={handleImportMerge} className="import-dialog-btn merge-btn">
-                Merge
+                {i18n.t('import_dialog.merge_button')}
               </button>
               <button onClick={handleImportReplace} className="import-dialog-btn replace-btn">
-                Replace
+                {i18n.t('import_dialog.replace_button')}
               </button>
               <button onClick={handleImportCancel} className="import-dialog-btn cancel-btn">
-                Cancel
+                {i18n.t('import_dialog.cancel_button')}
               </button>
             </div>
           </div>
