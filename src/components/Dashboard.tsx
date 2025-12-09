@@ -196,22 +196,26 @@ export const Dashboard = ({ username, onLogout, showHeader = true }: DashboardPr
       
       // Create inner span for the emoji
       const emoji = document.createElement('span');
-      
-      if (isForkGameEnabled && !isCorrectButton) {
-        // Failed attempt animation
-        emoji.textContent = '😓'; // Sweating emoji
-      } else {
-        emoji.textContent = '🏃'; // Running emoji
-      }
-      
-      // Flip emoji if going right
-      if (!goLeft) {
-        emoji.style.display = 'inline-block';
-        emoji.style.transform = 'scaleX(-1)';
-      }
+      emoji.textContent = '🏃'; // Always use running emoji
       
       runner.appendChild(emoji);
       targetButton.parentElement?.appendChild(runner);
+      
+      // Calculate button position for animation start
+      const buttonRect = targetButton.getBoundingClientRect();
+      const parentRect = targetButton.parentElement?.getBoundingClientRect();
+      
+      if (parentRect) {
+        // Set initial position to button center
+        const buttonCenterX = buttonRect.left - parentRect.left + buttonRect.width / 2;
+        const buttonCenterY = buttonRect.top - parentRect.top + buttonRect.height / 2;
+        
+        runner.style.position = 'absolute';
+        runner.style.left = `${buttonCenterX}px`;
+        runner.style.top = `${buttonCenterY}px`;
+        runner.style.transform = 'translate(-50%, -50%)';
+        runner.style.opacity = '0';
+      }
       
       if (isForkGameEnabled && !isCorrectButton) {
         // Failed attempt: up and down shake animation
@@ -223,22 +227,56 @@ export const Dashboard = ({ username, onLogout, showHeader = true }: DashboardPr
           ease: 'inOut(2)',
           onComplete: () => runner.remove(),
         });
+        
+        // Add falling sweat animation as child of runner, so it flips with the character
+        for (let i = 0; i < 3; i++) {
+          const sweat = document.createElement('div');
+          sweat.className = 'sweat-drop';
+          sweat.textContent = '💦';
+          sweat.style.position = 'absolute';
+          sweat.style.fontSize = '1.5rem';
+          sweat.style.pointerEvents = 'none';
+          sweat.style.zIndex = '101';
+          sweat.style.left = '50%';
+          sweat.style.top = '-20px';
+          sweat.style.transform = 'translateX(15px)'; // Offset to the right of the character
+          runner.appendChild(sweat);
+          
+          // Random delay for each sweat drop
+          const delay = i * 150;
+          
+          animate(sweat, {
+            translateY: [0, 50, 100],
+            translateX: [15, 25 + Math.random() * 20, 35 + Math.random() * 30],
+            opacity: [1, 0.8, 0],
+            scale: [1, 1.2, 0.8],
+            duration: 800,
+            delay: delay,
+            ease: 'out(2)',
+            onComplete: () => sweat.remove(),
+          });
+        }
       } else {
-        // Successful attempt: normal running animation
+        // Successful attempt: normal running animation with full movement
         // Random variations for each run
         const randomDistance = 350 + Math.random() * 150; // 350-500px
-        const direction = goLeft ? -randomDistance : randomDistance; // Negative for left, positive for right
         const randomBounce1 = -15 - Math.random() * 15; // -15 to -30px
         const randomBounce2 = -5 - Math.random() * 10; // -5 to -15px
         const randomDuration = 1200 + Math.random() * 600; // 1200-1800ms
-        const randomStartY = -20 + Math.random() * 40; // -20 to +20px vertical offset
         
-        // Set random starting vertical position
-        runner.style.top = `calc(50% + ${randomStartY}px)`;
+        // Calculate final position based on direction
+        const finalX = goLeft ? -randomDistance : randomDistance;
+        const finalScaleX = goLeft ? 1 : -1;
         
+        // Use full transform for animation to ensure all properties work together
         animate(runner, {
-          translateX: [0, direction],
-          translateY: [0, randomBounce1, 0, randomBounce2, 0],
+          transform: [
+            `translate(-50%, -50%) scaleX(${finalScaleX}) scale(1)`,
+            `translate(calc(-50% + ${finalX * 0.25}px), calc(-50% + ${randomBounce1}px)) scaleX(${finalScaleX}) scale(1.1)`,
+            `translate(calc(-50% + ${finalX * 0.5}px), -50%) scaleX(${finalScaleX}) scale(0.9)`,
+            `translate(calc(-50% + ${finalX * 0.75}px), calc(-50% + ${randomBounce2}px)) scaleX(${finalScaleX}) scale(1.05)`,
+            `translate(calc(-50% + ${finalX}px), -50%) scaleX(${finalScaleX}) scale(1)`
+          ],
           opacity: [0, 1, 1, 1, 0],
           duration: randomDuration,
           ease: 'out(2)',
@@ -408,29 +446,29 @@ export const Dashboard = ({ username, onLogout, showHeader = true }: DashboardPr
               <button
                 ref={(el) => { buttonRefs.current[0] = el; }}
                 onClick={() => handleHit(0)}
-                className="hit-button fork-button"
+                className="hit-button fork-button left"
                 disabled={isAnimating}
               >
-                <span className="hit-button-text">岔路1</span>
-                <span className="hit-button-icon">➡️</span>
+                <span className="hit-button-text">{i18n.t('dashboard.run_button')}</span>
+                <span className="hit-button-icon">🏃</span>
               </button>
               <button
                 ref={(el) => { buttonRefs.current[1] = el; }}
                 onClick={() => handleHit(1)}
-                className="hit-button fork-button"
+                className="hit-button fork-button middle"
                 disabled={isAnimating}
               >
-                <span className="hit-button-text">岔路2</span>
-                <span className="hit-button-icon">➡️</span>
+                <span className="hit-button-text">{i18n.t('dashboard.run_button')}</span>
+                <span className="hit-button-icon">🏃</span>
               </button>
               <button
                 ref={(el) => { buttonRefs.current[2] = el; }}
                 onClick={() => handleHit(2)}
-                className="hit-button fork-button"
+                className="hit-button fork-button right"
                 disabled={isAnimating}
               >
-                <span className="hit-button-text">岔路3</span>
-                <span className="hit-button-icon">➡️</span>
+                <span className="hit-button-text">{i18n.t('dashboard.run_button')}</span>
+                <span className="hit-button-icon">🏃</span>
               </button>
             </div>
           ) : (

@@ -235,16 +235,66 @@
 /* Fork in the Road game styles */
 .fork-buttons-container {
   display: flex;
-  gap: 20px;
+  gap: 60px; /* Increased spacing between buttons on wide screens */
   justify-content: center;
   margin-bottom: 20px;
   flex-wrap: wrap;
 }
 
 .fork-button {
-  flex: 1;
-  min-width: 150px;
+  /* Remove flex: 1 to prevent stretching, keep buttons circular */
+  min-width: 180px;
   max-width: 200px;
+  width: 200px;
+  height: 200px;
+}
+
+/* Button color variations */
+.fork-button.middle {
+  /* Keep original gradient */
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.fork-button.left {
+  /* New color for left button */
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.fork-button.right {
+  /* New color for right button */
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .fork-buttons-container {
+    gap: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .fork-buttons-container {
+    gap: 20px;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .fork-button {
+    min-width: 160px;
+    max-width: 200px;
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .fork-buttons-container {
+    gap: 15px;
+  }
+  
+  .fork-button {
+    min-width: 140px;
+    max-width: 180px;
+  }
 }
 
 .hit-button-text {

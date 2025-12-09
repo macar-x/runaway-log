@@ -176,7 +176,7 @@
 }
 
 .game-toggle:checked + .game-toggle-slider {
-  background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+  background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);
 }
 
 .game-toggle:focus + .game-toggle-slider {
