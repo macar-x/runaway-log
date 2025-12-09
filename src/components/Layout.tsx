@@ -12,7 +12,7 @@ interface LayoutProps {
 
 export const Layout = ({ username, onLogout, children }: LayoutProps) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const [, setRefreshKey] = useState(0);
+  const [refreshKey, setRefreshKey] = useState(0);
 
   const handleExport = () => {
     const userData = loadUserData(username);
@@ -67,7 +67,7 @@ export const Layout = ({ username, onLogout, children }: LayoutProps) => {
         onPrint={handlePrint}
         onTimezoneChange={handleTimezoneChange}
       />
-      {children}
+      <div key={refreshKey}>{children}</div>
     </>
   );
 };

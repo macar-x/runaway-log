@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import { animate, stagger } from 'animejs';
 import type { HitLog } from '../types';
 import { getSavedTimezone, formatDateInTimezone } from '../timezone';
+import { i18n } from '../i18n/i18n';
 import './HitLogs.css';
 
 interface HitLogsProps {
@@ -27,7 +28,7 @@ export const HitLogs = ({ hits, timezone: propTimezone }: HitLogsProps) => {
   }, [hits]);
 
   const formatTime = (timestamp: number) => {
-    return formatDateInTimezone(timestamp, timezone);
+    return formatDateInTimezone(timestamp, timezone, i18n.getLanguage());
   };
 
   // Show most recent hits first
@@ -37,9 +38,9 @@ export const HitLogs = ({ hits, timezone: propTimezone }: HitLogsProps) => {
   return (
     <div className="logs-container" ref={containerRef}>
       <h3 className="logs-title">
-        Escape Dreams Log
+        {i18n.t('statistics.escape_dreams_log')}
         {hits.length > 50 && (
-          <span className="logs-subtitle"> (Showing last 50 of {hits.length})</span>
+          <span className="logs-subtitle"> ({i18n.t('statistics.showing_last')} 50 {i18n.t('statistics.of')} {hits.length})</span>
         )}
       </h3>
       <div className="logs-list">

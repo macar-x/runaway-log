@@ -3,6 +3,7 @@ import { colorThemes, getThemeById, applyTheme } from '../themes';
 import { getTheme, setTheme, type Theme } from '../darkMode';
 import { getTimezones, getSavedTimezone, saveTimezone, getTimezoneDisplayName } from '../timezone';
 import { i18n } from '../i18n/i18n';
+import type { SupportedLanguage } from '../i18n/i18n';
 import './SettingsMenu.css';
 
 interface SettingsMenuProps {
@@ -19,8 +20,21 @@ export const SettingsMenu = ({ onExport, onImport, onPrint, onTimezoneChange }: 
   });
   const [darkMode, setDarkMode] = useState<Theme>(() => getTheme());
   const [selectedTimezone, setSelectedTimezone] = useState<string>(() => getSavedTimezone());
+  const [selectedLanguage, setSelectedLanguage] = useState<SupportedLanguage>(() => i18n.getLanguage());
   const menuRef = useRef<HTMLDivElement>(null);
   const timezones = getTimezones();
+  
+  // Handle language change
+  useEffect(() => {
+    return i18n.onLanguageChange(() => {
+      setSelectedLanguage(i18n.getLanguage());
+    });
+  }, []);
+  
+  const handleLanguageChange = (language: SupportedLanguage) => {
+    setSelectedLanguage(language);
+    i18n.setLanguage(language);
+  };
 
   useEffect(() => {
     const theme = getThemeById(selectedTheme);
@@ -133,6 +147,25 @@ export const SettingsMenu = ({ onExport, onImport, onPrint, onTimezoneChange }: 
                 {timezones.map((tz) => (
                   <option key={tz} value={tz}>
                     {getTimezoneDisplayName(tz)}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+
+          <div className="settings-divider"></div>
+
+          <div className="settings-section">
+            <h3 className="settings-section-title">{i18n.t('settings_menu.language')}</h3>
+            <div className="language-selector">
+              <select 
+                value={selectedLanguage} 
+                onChange={(e) => handleLanguageChange(e.target.value as SupportedLanguage)}
+                className="timezone-select"
+              >
+                {i18n.getSupportedLanguages().map((lang) => (
+                  <option key={lang.code} value={lang.code}>
+                    {lang.name}
                   </option>
                 ))}
               </select>

@@ -2,11 +2,12 @@
 <translations>
   <!-- Dashboard -->
   <dashboard>
-    <title>想要逃離嗎？</title>
-    <run_button>逃跑</run_button>
-    <hit_count>逃跑次數：<strong>{count}</strong></hit_count>
+    <title>想要跑路嗎？</title>
+    <run_button>跑路</run_button>
+    <hit_count>跑路次數：<strong>{count}</strong></hit_count>
     <logout>退出登錄</logout>
     <settings>⚙️ 設定</settings>
+    <brand_title>跑路模擬器</brand_title>
   </dashboard>
 
   <!-- Settings Menu -->
@@ -17,6 +18,7 @@
     <light_mode>淺色模式</light_mode>
     <calendar_theme>日曆主題</calendar_theme>
     <timezone>時區</timezone>
+    <language>語言</language>
     <actions>操作</actions>
     <export_data>匯出資料</export_data>
     <import_data>匯入資料</import_data>
@@ -28,10 +30,10 @@
   <import_dialog>
     <title>匯入資料</title>
     <from>來源：</from>
-    <escape_dreams>逃跑次數：</escape_dreams>
-    <warning>⚠️ 此資料來自不同使用者 ({username})。<br/>資料將匯入到您當前的帳戶 ({currentUsername})。<br/>如果您想匯入到 "{username}"，請先退出當前帳戶並以該使用者身份登入。</warning>
-    <merge>將新資料新增到當前資料中</merge>
-    <replace>用匯入的資料替換所有當前資料</replace>
+    <escape_dreams>跑路次數：</escape_dreams>
+    <warning>⚠️ 此資料來自不同使用者 ({username})。<br/>資料將匯入到您當前的帳戶 ({currentUsername})。<br/>如果您想匯入到 \"{username}\"，請先退出當前帳戶並以該使用者身份登入。</warning>
+    <merge>將新跑路記錄新增到當前資料中</merge>
+    <replace>用匯入的資料替換所有當前跑路記錄</replace>
     <merge_button>合併</merge_button>
     <replace_button>替換</replace_button>
     <cancel_button>取消</cancel_button>
@@ -52,8 +54,8 @@
   <!-- Error Messages -->
   <errors>
     <import_failed>❌ 匯入失敗：{error}</import_failed>
-    <import_merged>✅ 已合併 {count} 條新的逃跑記錄！</import_merged>
-    <import_replaced>✅ 已替換為 {count} 條逃跑記錄！</import_replaced>
+    <import_merged>✅ 已合併 {count} 條新的跑路記錄！</import_merged>
+    <import_replaced>✅ 已替換為 {count} 條跑路記錄！</import_replaced>
   </errors>
 
   <!-- Easter Eggs -->

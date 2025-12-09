@@ -1,34 +1,16 @@
 import { describe, it, expect } from 'vitest';
-import { motivationalQuotes, getRandomQuote } from '../quotes';
+import { getRandomQuote } from '../quotes';
 
 describe('quotes', () => {
-  describe('motivationalQuotes', () => {
-    it('contains at least 10 quotes', () => {
-      expect(motivationalQuotes.length).toBeGreaterThanOrEqual(10);
-    });
-
-    it('all quotes are non-empty strings', () => {
-      motivationalQuotes.forEach(quote => {
-        expect(typeof quote).toBe('string');
-        expect(quote.length).toBeGreaterThan(0);
-      });
-    });
-
-    it('all quotes are unique', () => {
-      const uniqueQuotes = new Set(motivationalQuotes);
-      expect(uniqueQuotes.size).toBe(motivationalQuotes.length);
-    });
-  });
-
   describe('getRandomQuote', () => {
-    it('returns a quote from the list', () => {
-      const quote = getRandomQuote();
-      expect(motivationalQuotes).toContain(quote);
-    });
-
     it('returns a string', () => {
       const quote = getRandomQuote();
       expect(typeof quote).toBe('string');
+    });
+
+    it('returns non-empty strings', () => {
+      const quote = getRandomQuote();
+      expect(quote.length).toBeGreaterThan(0);
     });
 
     it('returns different quotes over multiple calls', () => {

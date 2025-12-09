@@ -4,10 +4,15 @@ export type HitLog = {
   date: string;
 };
 
+export type GameSettings = {
+  forkInTheRoadEnabled?: boolean;
+};
+
 export type UserSettings = {
   timezone?: string;
   theme?: string;
   darkMode?: 'light' | 'dark';
+  games?: GameSettings;
 };
 
 export type UserProfile = {

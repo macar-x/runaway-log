@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { animate, stagger } from 'animejs';
 import type { HitLog } from '../types';
 import { getSavedTimezone, timestampToDateString } from '../timezone';
+import { i18n } from '../i18n/i18n';
 import './HitCalendar.css';
 
 interface HitCalendarProps {
@@ -90,7 +91,7 @@ export const HitCalendar = ({ hits, currentMonth: propCurrentMonth, onMonthChang
     setCurrentMonth(new Date());
   };
 
-  const monthName = currentMonth.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+  const monthName = currentMonth.toLocaleDateString(i18n.getLanguage() === 'zh_cn' || i18n.getLanguage() === 'zh_tw' ? 'zh-CN' : 'en-US', { month: 'long', year: 'numeric' });
 
   const getIntensity = (count: number) => {
     if (count === 0) return 'intensity-0';
@@ -108,16 +109,16 @@ export const HitCalendar = ({ hits, currentMonth: propCurrentMonth, onMonthChang
         <h3 className="calendar-title">{monthName}</h3>
         <button onClick={goToNextMonth} className="calendar-nav-btn">→</button>
       </div>
-      <button onClick={goToToday} className="calendar-today-btn">Today</button>
+      <button onClick={goToToday} className="calendar-today-btn">{i18n.t('statistics.today')}</button>
       
       <div className="calendar-weekdays">
-        <div className="weekday">Sun</div>
-        <div className="weekday">Mon</div>
-        <div className="weekday">Tue</div>
-        <div className="weekday">Wed</div>
-        <div className="weekday">Thu</div>
-        <div className="weekday">Fri</div>
-        <div className="weekday">Sat</div>
+        <div className="weekday">{i18n.t('statistics.sunday').substring(0, i18n.getLanguage().startsWith('zh') ? 1 : 3)}</div>
+        <div className="weekday">{i18n.t('statistics.monday').substring(0, i18n.getLanguage().startsWith('zh') ? 1 : 3)}</div>
+        <div className="weekday">{i18n.t('statistics.tuesday').substring(0, i18n.getLanguage().startsWith('zh') ? 1 : 3)}</div>
+        <div className="weekday">{i18n.t('statistics.wednesday').substring(0, i18n.getLanguage().startsWith('zh') ? 1 : 3)}</div>
+        <div className="weekday">{i18n.t('statistics.thursday').substring(0, i18n.getLanguage().startsWith('zh') ? 1 : 3)}</div>
+        <div className="weekday">{i18n.t('statistics.friday').substring(0, i18n.getLanguage().startsWith('zh') ? 1 : 3)}</div>
+        <div className="weekday">{i18n.t('statistics.saturday').substring(0, i18n.getLanguage().startsWith('zh') ? 1 : 3)}</div>
       </div>
       
       <div className="calendar-grid">
@@ -138,13 +139,13 @@ export const HitCalendar = ({ hits, currentMonth: propCurrentMonth, onMonthChang
       </div>
       
       <div className="calendar-legend">
-        <span>Less</span>
+        <span>{i18n.t('statistics.less')}</span>
         <div className="legend-item intensity-0"></div>
         <div className="legend-item intensity-1"></div>
         <div className="legend-item intensity-2"></div>
         <div className="legend-item intensity-3"></div>
         <div className="legend-item intensity-4"></div>
-        <span>More</span>
+        <span>{i18n.t('statistics.more')}</span>
       </div>
     </div>
   );

@@ -4,9 +4,10 @@
   <dashboard>
     <title>Dreaming of Escape?</title>
     <run_button>RUN</run_button>
-    <hit_count>Escape Dreams: <strong>{count}</strong></hit_count>
+    <hit_count>Runaway Count: <strong>{count}</strong></hit_count>
     <logout>Logout</logout>
     <settings>⚙️ Settings</settings>
+    <brand_title>RunawayLog</brand_title>
   </dashboard>
 
   <!-- Settings Menu -->
@@ -17,6 +18,7 @@
     <light_mode>Light Mode</light_mode>
     <calendar_theme>Calendar Theme</calendar_theme>
     <timezone>Timezone</timezone>
+    <language>Language</language>
     <actions>Actions</actions>
     <export_data>Export Data</export_data>
     <import_data>Import Data</import_data>
@@ -28,7 +30,7 @@
   <import_dialog>
     <title>Import Data</title>
     <from>From:</from>
-    <escape_dreams>Escape Dreams:</escape_dreams>
+    <escape_dreams>Runaway Count:</escape_dreams>
     <warning>⚠️ This data is from a different user ({username}).<br/>The data will be imported to your current account ({currentUsername}).<br/>If you want to import to "{username}", please logout and login as that user first.</warning>
     <merge>Add new dreams to your current data</merge>
     <replace>Replace all your data with imported data</replace>
@@ -52,8 +54,8 @@
   <!-- Error Messages -->
   <errors>
     <import_failed>❌ Import failed: {error}</import_failed>
-    <import_merged>✅ Merged {count} new escape dreams!</import_merged>
-    <import_replaced>✅ Replaced with {count} escape dreams!</import_replaced>
+    <import_merged>✅ Merged {count} new runaway records!</import_merged>
+    <import_replaced>✅ Replaced with {count} runaway records!</import_replaced>
   </errors>
 
   <!-- Easter Eggs -->

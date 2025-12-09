@@ -2,11 +2,12 @@
 <translations>
   <!-- Dashboard -->
   <dashboard>
-    <title>想要逃离吗？</title>
-    <run_button>逃跑</run_button>
-    <hit_count>逃跑次数：<strong>{count}</strong></hit_count>
+    <title>想要跑路吗？</title>
+    <run_button>跑路</run_button>
+    <hit_count>跑路次数：<strong>{count}</strong></hit_count>
     <logout>退出登录</logout>
     <settings>⚙️ 设置</settings>
+    <brand_title>跑路模拟器</brand_title>
   </dashboard>
 
   <!-- Settings Menu -->
@@ -17,6 +18,7 @@
     <light_mode>浅色模式</light_mode>
     <calendar_theme>日历主题</calendar_theme>
     <timezone>时区</timezone>
+    <language>语言</language>
     <actions>操作</actions>
     <export_data>导出数据</export_data>
     <import_data>导入数据</import_data>
@@ -28,10 +30,10 @@
   <import_dialog>
     <title>导入数据</title>
     <from>来源：</from>
-    <escape_dreams>逃跑次数：</escape_dreams>
-    <warning>⚠️ 此数据来自不同用户 ({username})。<br/>数据将导入到您当前的账户 ({currentUsername})。<br/>如果您想导入到 "{username}"，请先退出当前账户并以该用户身份登录。</warning>
-    <merge>将新数据添加到当前数据中</merge>
-    <replace>用导入的数据替换所有当前数据</replace>
+    <escape_dreams>跑路次数：</escape_dreams>
+    <warning>⚠️ 此数据来自不同用户 ({username})。<br/>数据将导入到您当前的账户 ({currentUsername})。<br/>如果您想导入到 \"{username}\"，请先退出当前账户并以该用户身份登录。</warning>
+    <merge>将新跑路记录添加到当前数据中</merge>
+    <replace>用导入的数据替换所有当前跑路记录</replace>
     <merge_button>合并</merge_button>
     <replace_button>替换</replace_button>
     <cancel_button>取消</cancel_button>
@@ -52,8 +54,8 @@
   <!-- Error Messages -->
   <errors>
     <import_failed>❌ 导入失败：{error}</import_failed>
-    <import_merged>✅ 已合并 {count} 条新的逃跑记录！</import_merged>
-    <import_replaced>✅ 已替换为 {count} 条逃跑记录！</import_replaced>
+    <import_merged>✅ 已合并 {count} 条新的跑路记录！</import_merged>
+    <import_replaced>✅ 已替换为 {count} 条跑路记录！</import_replaced>
   </errors>
 
   <!-- Easter Eggs -->

@@ -31,9 +31,30 @@ export const Dashboard = ({ username, onLogout, showHeader = true }: DashboardPr
   const [showPrintDialog, setShowPrintDialog] = useState(false);
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [timezone, setTimezone] = useState<string>(() => getSavedTimezone());
+  const [currentTime, setCurrentTime] = useState(new Date());
+  const [gameSettings, setGameSettings] = useState<{ forkInTheRoadEnabled?: boolean }>({});
+  const [correctButtonIndex, setCorrectButtonIndex] = useState(0);
   const buttonRef = useRef<HTMLButtonElement>(null);
+  const buttonRefs = useRef<(HTMLButtonElement | null)[]>([null, null, null]);
   const containerRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // Update current time every second
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
+
+  // Format current time using user's timezone
+  const formattedTime = currentTime.toLocaleTimeString([], {
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    timeZone: timezone
+  });
 
   useEffect(() => {
     if (containerRef.current) {
@@ -45,19 +66,49 @@ export const Dashboard = ({ username, onLogout, showHeader = true }: DashboardPr
     }
   }, []);
 
-  const handleHit = () => {
+  // Update quote when language changes
+  useEffect(() => {
+    const unsubscribe = i18n.onLanguageChange(() => {
+      setQuote(getRandomQuote());
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  // Load game settings from user data
+  useEffect(() => {
+    const userData = loadUserData(username);
+    if (userData?.settings?.games) {
+      setGameSettings(userData.settings.games);
+    }
+  }, [username]);
+
+  // Set random correct button when game settings change or after each attempt
+  useEffect(() => {
+    if (gameSettings.forkInTheRoadEnabled) {
+      setCorrectButtonIndex(Math.floor(Math.random() * 3));
+    }
+  }, [gameSettings.forkInTheRoadEnabled, correctButtonIndex]);
+
+  const handleHit = (buttonIndex?: number) => {
     if (isAnimating) return;
     
     setIsAnimating(true);
     
+    // Check if Fork in the Road game is enabled
+    const isForkGameEnabled = gameSettings.forkInTheRoadEnabled;
+    const isCorrectButton = isForkGameEnabled ? buttonIndex === correctButtonIndex : true;
+    
     // Easter egg: 0.6% chance for boom animation
     const isBoom = Math.random() < 0.006;
     
-    // Button animation
-    if (buttonRef.current) {
+    // Determine which button to animate
+    const targetButton = isForkGameEnabled ? buttonRefs.current[buttonIndex || 0] : buttonRef.current;
+    
+    if (targetButton) {
       if (isBoom) {
         // Boom animation - more intense
-        animate(buttonRef.current, {
+        animate(targetButton, {
           scale: [1, 1.5, 0.8, 1.2, 1],
           rotate: [0, -15, 15, -10, 10, 0],
           duration: 800,
@@ -68,7 +119,7 @@ export const Dashboard = ({ username, onLogout, showHeader = true }: DashboardPr
         const explosion = document.createElement('div');
         explosion.className = 'explosion';
         explosion.textContent = '💥';
-        buttonRef.current.parentElement?.appendChild(explosion);
+        targetButton.parentElement?.appendChild(explosion);
         
         animate(explosion, {
           scale: [0, 3, 2.5],
@@ -85,7 +136,7 @@ export const Dashboard = ({ username, onLogout, showHeader = true }: DashboardPr
           const particle = document.createElement('div');
           particle.className = 'explosion-particle';
           particle.textContent = particles[Math.floor(Math.random() * particles.length)];
-          buttonRef.current.parentElement?.appendChild(particle);
+          targetButton.parentElement?.appendChild(particle);
           
           const angle = (Math.PI * 2 * i) / 8;
           const distance = 150 + Math.random() * 100;
@@ -108,11 +159,15 @@ export const Dashboard = ({ username, onLogout, showHeader = true }: DashboardPr
         setQuote(i18n.t('easter_eggs.boom_quote'));
         
         setTimeout(() => setIsAnimating(false), 800);
+        // Reset correct button index for next attempt if Fork game is enabled
+        if (isForkGameEnabled) {
+          setCorrectButtonIndex(Math.floor(Math.random() * 3));
+        }
         return; // Don't record this hit
       }
 
       // Normal animation
-      animate(buttonRef.current, {
+      animate(targetButton, {
         scale: [1, 1.3, 0.9, 1.1, 1],
         rotate: [0, -10, 10, -5, 0],
         duration: 600,
@@ -122,7 +177,7 @@ export const Dashboard = ({ username, onLogout, showHeader = true }: DashboardPr
       // Ripple effect
       const ripple = document.createElement('div');
       ripple.className = 'ripple';
-      buttonRef.current.appendChild(ripple);
+      targetButton.appendChild(ripple);
       
       animate(ripple, {
         scale: [0, 4],
@@ -141,7 +196,13 @@ export const Dashboard = ({ username, onLogout, showHeader = true }: DashboardPr
       
       // Create inner span for the emoji
       const emoji = document.createElement('span');
-      emoji.textContent = '🏃';
+      
+      if (isForkGameEnabled && !isCorrectButton) {
+        // Failed attempt animation
+        emoji.textContent = '😓'; // Sweating emoji
+      } else {
+        emoji.textContent = '🏃'; // Running emoji
+      }
       
       // Flip emoji if going right
       if (!goLeft) {
@@ -150,42 +211,64 @@ export const Dashboard = ({ username, onLogout, showHeader = true }: DashboardPr
       }
       
       runner.appendChild(emoji);
-      buttonRef.current.parentElement?.appendChild(runner);
+      targetButton.parentElement?.appendChild(runner);
       
-      // Random variations for each run
-      const randomDistance = 350 + Math.random() * 150; // 350-500px
-      const direction = goLeft ? -randomDistance : randomDistance; // Negative for left, positive for right
-      const randomBounce1 = -15 - Math.random() * 15; // -15 to -30px
-      const randomBounce2 = -5 - Math.random() * 10; // -5 to -15px
-      const randomDuration = 1200 + Math.random() * 600; // 1200-1800ms
-      const randomStartY = -20 + Math.random() * 40; // -20 to +20px vertical offset
-      
-      // Set random starting vertical position
-      runner.style.top = `calc(50% + ${randomStartY}px)`;
-      
-      animate(runner, {
-        translateX: [0, direction],
-        translateY: [0, randomBounce1, 0, randomBounce2, 0],
-        opacity: [0, 1, 1, 1, 0],
-        duration: randomDuration,
-        ease: 'out(2)',
-        onComplete: () => runner.remove(),
-      });
+      if (isForkGameEnabled && !isCorrectButton) {
+        // Failed attempt: up and down shake animation
+        animate(runner, {
+          translateY: [0, -10, 10, -10, 10, 0],
+          scale: [1, 1.2, 1, 1.2, 1],
+          opacity: [0, 1, 1, 1, 1, 0],
+          duration: 1000,
+          ease: 'inOut(2)',
+          onComplete: () => runner.remove(),
+        });
+      } else {
+        // Successful attempt: normal running animation
+        // Random variations for each run
+        const randomDistance = 350 + Math.random() * 150; // 350-500px
+        const direction = goLeft ? -randomDistance : randomDistance; // Negative for left, positive for right
+        const randomBounce1 = -15 - Math.random() * 15; // -15 to -30px
+        const randomBounce2 = -5 - Math.random() * 10; // -5 to -15px
+        const randomDuration = 1200 + Math.random() * 600; // 1200-1800ms
+        const randomStartY = -20 + Math.random() * 40; // -20 to +20px vertical offset
+        
+        // Set random starting vertical position
+        runner.style.top = `calc(50% + ${randomStartY}px)`;
+        
+        animate(runner, {
+          translateX: [0, direction],
+          translateY: [0, randomBounce1, 0, randomBounce2, 0],
+          opacity: [0, 1, 1, 1, 0],
+          duration: randomDuration,
+          ease: 'out(2)',
+          onComplete: () => runner.remove(),
+        });
+      }
     }
 
-    // Add hit to storage
-    const newHit = addHit(username);
-    if (newHit) {
-      setUserData(prev => ({
-        ...prev,
-        hits: [...prev.hits, newHit],
-      }));
-    }
+    // Add hit to storage only if it's the correct button or not in Fork game mode
+    if (isCorrectButton) {
+      const newHit = addHit(username);
+      if (newHit) {
+        setUserData(prev => ({
+          ...prev,
+          hits: [...prev.hits, newHit],
+        }));
+      }
 
-    // Change quote on each hit
-    setQuote(getRandomQuote());
+      // Change quote on successful hit
+      setQuote(getRandomQuote());
+    }
 
     setTimeout(() => setIsAnimating(false), 600);
+    
+    // Reset correct button index for next attempt if Fork game is enabled
+    if (isForkGameEnabled) {
+      setTimeout(() => {
+        setCorrectButtonIndex(Math.floor(Math.random() * 3));
+      }, 600);
+    }
   };
 
   const handleExport = () => {
@@ -318,16 +401,50 @@ export const Dashboard = ({ username, onLogout, showHeader = true }: DashboardPr
 
       <main className="dashboard-main">
         <div className="hit-section">
-          <h2 className="section-title">{i18n.t('dashboard.title')}</h2>
-          <button
-            ref={buttonRef}
-            onClick={handleHit}
-            className="hit-button"
-            disabled={isAnimating}
-          >
-            <span className="hit-button-text">{i18n.t('dashboard.run_button')}</span>
-            <span className="hit-button-icon">🏃</span>
-          </button>
+          <h2 className="section-title">{formattedTime}</h2>
+          
+          {gameSettings.forkInTheRoadEnabled ? (
+            <div className="fork-buttons-container">
+              <button
+                ref={(el) => { buttonRefs.current[0] = el; }}
+                onClick={() => handleHit(0)}
+                className="hit-button fork-button"
+                disabled={isAnimating}
+              >
+                <span className="hit-button-text">岔路1</span>
+                <span className="hit-button-icon">➡️</span>
+              </button>
+              <button
+                ref={(el) => { buttonRefs.current[1] = el; }}
+                onClick={() => handleHit(1)}
+                className="hit-button fork-button"
+                disabled={isAnimating}
+              >
+                <span className="hit-button-text">岔路2</span>
+                <span className="hit-button-icon">➡️</span>
+              </button>
+              <button
+                ref={(el) => { buttonRefs.current[2] = el; }}
+                onClick={() => handleHit(2)}
+                className="hit-button fork-button"
+                disabled={isAnimating}
+              >
+                <span className="hit-button-text">岔路3</span>
+                <span className="hit-button-icon">➡️</span>
+              </button>
+            </div>
+          ) : (
+            <button
+              ref={buttonRef}
+              onClick={() => handleHit()}
+              className="hit-button"
+              disabled={isAnimating}
+            >
+              <span className="hit-button-text">{i18n.t('dashboard.run_button')}</span>
+              <span className="hit-button-icon">🏃</span>
+            </button>
+          )}
+          
           <p className="motivational-quote">"{quote}"</p>
           <p className="hit-count" dangerouslySetInnerHTML={{ __html: i18n.t('dashboard.hit_count', { count: userData.hits.length }) }} />
         </div>

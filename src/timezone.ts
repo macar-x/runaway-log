@@ -101,16 +101,19 @@ export const getCurrentTimestamp = (): number => {
 };
 
 // Format date for display in specified timezone
-export const formatDateInTimezone = (timestamp: number, timezone: string): string => {
+export const formatDateInTimezone = (timestamp: number, timezone: string, language?: string): string => {
   const date = new Date(timestamp);
-  return date.toLocaleString('en-US', {
+  const locale = language === 'zh_cn' || language === 'zh_tw' ? 'zh-CN' : 'en-US';
+  
+  return date.toLocaleString(locale, {
     timeZone: timezone,
-    month: 'short',
-    day: 'numeric',
     year: 'numeric',
+    month: language === 'zh_cn' || language === 'zh_tw' ? '2-digit' : 'short',
+    day: '2-digit',
     hour: '2-digit',
     minute: '2-digit',
     second: '2-digit',
+    hour12: locale !== 'zh-CN',
   });
 };
 

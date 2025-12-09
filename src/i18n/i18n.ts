@@ -8,6 +8,8 @@ type Translations = typeof en_us;
 
 type TranslationPath = string;
 
+type LanguageChangeCallback = () => void;
+
 class I18n {
   private currentLanguage: SupportedLanguage = 'en_us';
   private translations: Record<SupportedLanguage, Translations> = {
@@ -15,8 +17,25 @@ class I18n {
     zh_cn,
     zh_tw
   };
+  private listeners: Set<LanguageChangeCallback> = new Set();
+  private readonly LANGUAGE_KEY = 'app-language';
 
   constructor() {
+    this.loadLanguage();
+  }
+
+  /**
+   * Load language from localStorage or detect from browser settings
+   */
+  private loadLanguage(): void {
+    // Try to load from localStorage first
+    const savedLang = localStorage.getItem(this.LANGUAGE_KEY) as SupportedLanguage | null;
+    if (savedLang && this.isSupportedLanguage(savedLang)) {
+      this.currentLanguage = savedLang;
+      return;
+    }
+
+    // Fallback to browser language
     this.detectLanguage();
   }
 
@@ -36,10 +55,21 @@ class I18n {
   }
 
   /**
+   * Check if a language is supported
+   */
+  private isSupportedLanguage(lang: string): lang is SupportedLanguage {
+    return Object.keys(this.translations).includes(lang);
+  }
+
+  /**
    * Set the current language
    */
   public setLanguage(lang: SupportedLanguage): void {
-    this.currentLanguage = lang;
+    if (this.currentLanguage !== lang) {
+      this.currentLanguage = lang;
+      localStorage.setItem(this.LANGUAGE_KEY, lang);
+      this.notifyListeners();
+    }
   }
 
   /**
@@ -47,6 +77,31 @@ class I18n {
    */
   public getLanguage(): SupportedLanguage {
     return this.currentLanguage;
+  }
+
+  /**
+   * Subscribe to language change events
+   */
+  public onLanguageChange(callback: LanguageChangeCallback): () => void {
+    this.listeners.add(callback);
+    
+    // Return unsubscribe function
+    return () => {
+      this.listeners.delete(callback);
+    };
+  }
+
+  /**
+   * Notify all listeners that language has changed
+   */
+  private notifyListeners(): void {
+    this.listeners.forEach(callback => {
+      try {
+        callback();
+      } catch (error) {
+        console.error('Error in language change callback:', error);
+      }
+    });
   }
 
   /**
@@ -79,10 +134,14 @@ class I18n {
   }
 
   /**
-   * Get all supported languages
+   * Get all supported languages with display names
    */
-  public getSupportedLanguages(): SupportedLanguage[] {
-    return Object.keys(this.translations) as SupportedLanguage[];
+  public getSupportedLanguages(): { code: SupportedLanguage; name: string }[] {
+    return [
+      { code: 'en_us', name: 'English (US)' },
+      { code: 'zh_cn', name: '中文 (简体)' },
+      { code: 'zh_tw', name: '中文 (繁体)' }
+    ];
   }
 }
 

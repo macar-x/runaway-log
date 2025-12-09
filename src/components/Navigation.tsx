@@ -1,7 +1,9 @@
+import { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { ModeToggle } from './ModeToggle';
 import { SettingsMenu } from './SettingsMenu';
 import { useMode } from '../contexts/ModeContext';
+import { i18n } from '../i18n/i18n';
 import './Navigation.css';
 
 interface NavigationProps {
@@ -16,35 +18,40 @@ interface NavigationProps {
 export const Navigation = ({ username, onLogout, onExport, onImport, onPrint, onTimezoneChange }: NavigationProps) => {
   const { mode } = useMode();
   const isPro = mode === 'pro';
+  
+  // Force re-render when language changes
+  const [, setLanguageChangeTrigger] = useState(0);
+  
+  useEffect(() => {
+    const unsubscribe = i18n.onLanguageChange(() => {
+      setLanguageChangeTrigger(prev => prev + 1);
+    });
+    
+    return () => unsubscribe();
+  }, []);
 
   return (
     <nav className="pro-navigation">
       <div className="nav-container">
         <div className="nav-brand">
           <span className="nav-logo">🏃</span>
-          <span className="nav-title">RunawayLog</span>
+          <span className="nav-title">{i18n.t('dashboard.brand_title')}</span>
         </div>
 
         <div className="nav-links">
           <NavLink to="/" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`} end>
-            Home
+            {i18n.t('navigation.home')}
           </NavLink>
           {isPro && (
             <>
               <NavLink to="/games" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
-                Games
+                {i18n.t('navigation.games')}
               </NavLink>
               <NavLink to="/storage" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
-                Storage
-              </NavLink>
-              <NavLink to="/profile" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
-                Profile
-              </NavLink>
-              <NavLink to="/releases" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
-                Releases
+                {i18n.t('navigation.storage')}
               </NavLink>
               <NavLink to="/about" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
-                About
+                {i18n.t('navigation.about')}
               </NavLink>
             </>
           )}
@@ -58,12 +65,12 @@ export const Navigation = ({ username, onLogout, onExport, onImport, onPrint, on
             onPrint={onPrint}
             onTimezoneChange={onTimezoneChange}
           />
-          <div className="nav-user">
+          <NavLink to="/profile" className="nav-user nav-link">
             <span className="nav-user-icon">👤</span>
             <span className="nav-username">{username}</span>
-          </div>
+          </NavLink>
           <button onClick={onLogout} className="nav-logout">
-            Logout
+            {i18n.t('dashboard.logout')}
           </button>
         </div>
       </div>

@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import type { HitLog } from '../types';
 import { timestampToDateString } from '../timezone';
+import { i18n } from '../i18n/i18n';
 import './Statistics.css';
 
 interface StatisticsProps {
@@ -101,12 +102,12 @@ export const Statistics = ({ hits, timezone }: StatisticsProps) => {
 
     // Most active day of week
     const dayStats: DayStats = {};
-    const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    const dayKeys = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
     
     hits.forEach(hit => {
       const date = new Date(hit.timestamp);
-      const dayName = dayNames[date.getDay()];
-      dayStats[dayName] = (dayStats[dayName] || 0) + 1;
+      const dayKey = dayKeys[date.getDay()];
+      dayStats[dayKey] = (dayStats[dayKey] || 0) + 1;
     });
     
     const mostActiveDay = Object.entries(dayStats).reduce((a, b) => 
@@ -155,75 +156,75 @@ export const Statistics = ({ hits, timezone }: StatisticsProps) => {
   }, [hits, timezone]);
 
   return (
-    <div className="statistics-container">
-      <h3 className="statistics-title">📊 Statistics</h3>
+      <div className="statistics-container">
+        <h3 className="statistics-title">📊 {i18n.t('statistics.title')}</h3>
       
-      <div className="stats-grid">
-        <div className="stat-card">
-          <div className="stat-value">{stats.total}</div>
-          <div className="stat-label">Total Escapes</div>
+        <div className="stats-grid">
+          <div className="stat-card">
+            <div className="stat-value">{stats.total}</div>
+            <div className="stat-label">{i18n.t('statistics.total')}</div>
+          </div>
+
+          <div className="stat-card">
+            <div className="stat-value">{stats.today}</div>
+            <div className="stat-label">{i18n.t('statistics.today')}</div>
+          </div>
+
+          <div className="stat-card">
+            <div className="stat-value">{stats.thisWeek}</div>
+            <div className="stat-label">{i18n.t('statistics.this_week')}</div>
+          </div>
+
+          <div className="stat-card">
+            <div className="stat-value">{stats.thisMonth}</div>
+            <div className="stat-label">{i18n.t('statistics.this_month')}</div>
+          </div>
+
+          <div className="stat-card">
+            <div className="stat-value">{stats.averagePerDay}</div>
+            <div className="stat-label">{i18n.t('statistics.average_per_day')}</div>
+          </div>
+
+          <div className="stat-card">
+            <div className="stat-value">{stats.currentStreak}</div>
+            <div className="stat-label">{i18n.t('statistics.current_streak')}</div>
+          </div>
+
+          <div className="stat-card">
+            <div className="stat-value">{stats.longestStreak}</div>
+            <div className="stat-label">{i18n.t('statistics.longest_streak')}</div>
+          </div>
+
+          <div className="stat-card">
+            <div className="stat-value">{stats.peakCount}</div>
+            <div className="stat-label">{i18n.t('statistics.peak_day')}</div>
+          </div>
         </div>
 
-        <div className="stat-card">
-          <div className="stat-value">{stats.today}</div>
-          <div className="stat-label">Today</div>
-        </div>
-
-        <div className="stat-card">
-          <div className="stat-value">{stats.thisWeek}</div>
-          <div className="stat-label">This Week</div>
-        </div>
-
-        <div className="stat-card">
-          <div className="stat-value">{stats.thisMonth}</div>
-          <div className="stat-label">This Month</div>
-        </div>
-
-        <div className="stat-card">
-          <div className="stat-value">{stats.averagePerDay}</div>
-          <div className="stat-label">Avg per Day</div>
-        </div>
-
-        <div className="stat-card">
-          <div className="stat-value">{stats.currentStreak}</div>
-          <div className="stat-label">Current Streak</div>
-        </div>
-
-        <div className="stat-card">
-          <div className="stat-value">{stats.longestStreak}</div>
-          <div className="stat-label">Longest Streak</div>
-        </div>
-
-        <div className="stat-card">
-          <div className="stat-value">{stats.peakCount}</div>
-          <div className="stat-label">Peak Day</div>
-        </div>
-      </div>
-
-      <div className="stats-insights">
-        <div className="insight-item">
-          <span className="insight-icon">📅</span>
-          <span className="insight-text">
-            Most active on <strong>{stats.mostActiveDay || 'N/A'}</strong>
-          </span>
-        </div>
-
-        <div className="insight-item">
-          <span className="insight-icon">🕐</span>
-          <span className="insight-text">
-            Peak escape time: <strong>{stats.mostActiveHour || 'N/A'}</strong>
-          </span>
-        </div>
-
-        {stats.peakDay && (
+        <div className="stats-insights">
           <div className="insight-item">
-            <span className="insight-icon">🔥</span>
+            <span className="insight-icon">📅</span>
             <span className="insight-text">
-              Record day: <strong>{stats.peakCount} escapes</strong> on {stats.peakDay}
+              {i18n.t('statistics.most_active_on')} <strong>{stats.mostActiveDay ? i18n.t(`statistics.${stats.mostActiveDay}`) : 'N/A'}</strong>
             </span>
           </div>
-        )}
+
+          <div className="insight-item">
+            <span className="insight-icon">🕐</span>
+            <span className="insight-text">
+              {i18n.t('statistics.peak_runaway_time')} <strong>{stats.mostActiveHour || 'N/A'}</strong>
+            </span>
+          </div>
+
+          {stats.peakDay && (
+            <div className="insight-item">
+              <span className="insight-icon">🔥</span>
+              <span className="insight-text">
+                {i18n.t('statistics.record_day')} <strong>{stats.peakCount} {i18n.t('statistics.runaways')}</strong> {i18n.t('statistics.on')} {stats.peakDay}
+              </span>
+            </div>
+          )}
+        </div>
       </div>
-    </div>
-  );
+    );
 };
