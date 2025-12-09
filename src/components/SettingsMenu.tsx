@@ -159,6 +159,10 @@ export const SettingsMenu = ({ onExport, onImport, onPrint, onTimezoneChange }: 
               <span className="action-icon">🖨️</span>
               <span>Print Calendar</span>
             </button>
+            <button onClick={() => setIsOpen(false)} className="settings-action-btn">
+              <span className="action-icon">✖️</span>
+              <span>Close</span>
+            </button>
           </div>
         </div>
       )}
