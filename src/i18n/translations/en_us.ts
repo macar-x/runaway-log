@@ -14,7 +14,7 @@ export const en_us = {
     hub_title: "🎮 Game Modes",
     hub_subtitle: "Different ways to track your escape dreams",
     card_drop: "Card Drop",
-    card_drop_description: "Collect random cards with each escape dream. Build your collection!",
+    card_drop_description: "Collect random cards with each escape dream. Build your collection! (Nothing will happen for now)",
     fork_in_the_road: "Fork in the Road",
     fork_in_the_road_description: "Choose the right path! Only one of three buttons will record a successful escape.",
     slot_machine: "Slot Machine",
@@ -45,7 +45,7 @@ export const en_us = {
     hit_count: "Runaway Count: <strong>{count}</strong>",
     logout: "Logout",
     settings: "⚙️ Settings",
-    brand_title: "The Runaway Emulator"
+    brand_title: "The Runaway Simulator"
   },
   settings_menu: {
     title: "Settings",
@@ -120,15 +120,33 @@ export const en_us = {
   login: {
     title: "🏃 The Runaway Simulator",
     subtitle: "Track your runaway dreams",
-    slogan: "Every click is a dream of freedom",
+    register_title: "🏃 Register Account",
+    register_subtitle: "Create your runaway account, sync data across devices",
+    slogan: "Every click represents a free dream",
     username: "Username",
     password: "Password",
+    email: "Email",
     placeholder_username: "Enter username",
-    placeholder_password: "Password (not supported yet)",
-    button: "Let's Go! 🚀"
+    placeholder_password: "Enter password",
+    placeholder_email: "Enter email (optional)",
+    passwordless_login: "No password required, login directly",
+    button: "Start Running 🚀",
+    register_button: "Register Account",
+    switch_to_login: "Already have an account? Log in now",
+    switch_to_register: "Don't have an account? Register now",
+    loading: "Processing...",
+    error: {
+      username_required: "Please enter username",
+      password_required: "Please enter password",
+      password_too_short: "Password must be at least 6 characters",
+      username_taken: "Username already taken",
+      invalid_credentials: "Invalid username or password",
+      login_failed: "Login failed, please try again later",
+      registration_failed: "Registration failed, please try again later"
+    }
   },
   meta: {
-    title: "RunawayLog - Track Your Escape Dreams",
+    title: "The Runaway Simulator - Track Your Escape Dreams",
     description: "Track your desire to escape the daily grind. Every click is a dream of freedom."
   },
   settings: {
@@ -140,6 +158,7 @@ export const en_us = {
     timezone: "🌍 Timezone",
     language: "🌐 Language",
     data_management: "💾 Data Management",
+    import_export: "📤 Import/Export",
     export_data: "📤 Export Data",
     import_data: "📥 Import Data",
     print_calendar: "🖨️ Print Calendar",
@@ -149,6 +168,13 @@ export const en_us = {
     powered_by: "Powered by <strong>Ona</strong>, the AI software engineering agent",
     version: "Version 1.1.0 • MIT License • © 2025",
     regional_settings: "🌍 Regional Settings",
-    appearance_settings: "🎨 Appearance Settings"
+    appearance_settings: "🎨 Appearance Settings",
+    local_storage: "Local Storage",
+    local_storage_description: "Data stored only on this device, offline available, privacy secure",
+    cloud_storage: "Cloud Storage",
+    cloud_storage_description: "Data synchronized to the cloud, accessible across devices, real-time updates",
+    cloud_storage_description_disabled: "Data synchronized to the cloud, accessible across devices, real-time updates (Coming Soon)",
+    hybrid_storage: "Hybrid Mode",
+    hybrid_storage_description: "Combines local and cloud storage, offline available with auto-sync"
   },
 };

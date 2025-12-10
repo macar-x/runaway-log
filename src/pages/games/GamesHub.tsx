@@ -24,6 +24,7 @@ export const GamesHub = () => {
   const [showCardAlbum, setShowCardAlbum] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
   const cardsPerPage = 6;
+  const [currentPageCards, setCurrentPageCards] = useState<typeof cards>([]);
   
   // 8张占位卡片数据，带有编号
   const cards: Card[] = [
@@ -111,79 +112,85 @@ export const GamesHub = () => {
   
   // 从用户数据加载游戏设置和卡片拥有情况
   useEffect(() => {
-    const userData = loadUserData(username);
-    if (userData?.settings?.games) {
-      // 加载游戏功能开关设置
-      if (userData.settings.games.forkInTheRoadEnabled !== undefined) {
-        setForkInTheRoadEnabled(userData.settings.games.forkInTheRoadEnabled);
-      }
-      if (userData.settings.games.cardDropEnabled !== undefined) {
-        setCardDropEnabled(userData.settings.games.cardDropEnabled);
-      }
-    }
-    
-    // 确保用户数据中记录每个卡片的拥有数量，初始值为0
-    if (userData) {
-      // 初始化卡片拥有数量记录
-      const cardCollections = userData.cardCollections || {};
-      const updatedCollections = { ...cardCollections };
-      
-      // 为每个卡片确保有对应的拥有数量记录
-      cards.forEach(card => {
-        if (updatedCollections[card.number] === undefined) {
-          updatedCollections[card.number] = 0;
+    const fetchUserData = async () => {
+      const userData = await loadUserData(username);
+      if (userData?.settings?.games) {
+        // 加载游戏功能开关设置
+        if (userData.settings.games.forkInTheRoadEnabled !== undefined) {
+          setForkInTheRoadEnabled(userData.settings.games.forkInTheRoadEnabled);
         }
-      });
-      
-      // 如果有更新，保存用户数据
-      if (JSON.stringify(updatedCollections) !== JSON.stringify(cardCollections)) {
-        saveUserData({
-          ...userData,
-          cardCollections: updatedCollections
-        });
+        if (userData.settings.games.cardDropEnabled !== undefined) {
+          setCardDropEnabled(userData.settings.games.cardDropEnabled);
+        }
       }
-    }
-  }, [username, cards]);
+      
+      // 确保用户数据中记录每个卡片的拥有数量，初始值为0
+      if (userData) {
+        // 初始化卡片拥有数量记录
+        const cardCollections = userData.cardCollections || {};
+        const updatedCollections = { ...cardCollections };
+        
+        // 为每个卡片确保有对应的拥有数量记录
+        cards.forEach(card => {
+          if (updatedCollections[card.number] === undefined) {
+            updatedCollections[card.number] = 0;
+          }
+        });
+        
+        // 如果有更新，保存用户数据
+        if (JSON.stringify(updatedCollections) !== JSON.stringify(cardCollections)) {
+          await saveUserData({
+            ...userData,
+            cardCollections: updatedCollections
+          });
+        }
+      }
+    };
+    
+    fetchUserData();
+  }, [username]);
   
   // Save game settings to user data
-  const handleForkInTheRoadToggle = () => {
-    const userData = loadUserData(username);
+  const handleForkInTheRoadToggle = async () => {
+    const userData = await loadUserData(username);
     if (userData) {
+      const newEnabled = !forkInTheRoadEnabled;
       const updatedSettings = {
         ...userData.settings,
         games: {
           ...userData.settings?.games,
-          forkInTheRoadEnabled: !forkInTheRoadEnabled
+          forkInTheRoadEnabled: newEnabled
         }
       };
       
-      saveUserData({
+      await saveUserData({
         ...userData,
         settings: updatedSettings
       });
       
-      setForkInTheRoadEnabled(!forkInTheRoadEnabled);
+      setForkInTheRoadEnabled(newEnabled);
     }
   };
   
   // Toggle card drop game enabled state
-  const handleCardDropToggle = () => {
-    const userData = loadUserData(username);
+  const handleCardDropToggle = async () => {
+    const userData = await loadUserData(username);
     if (userData) {
+      const newEnabled = !cardDropEnabled;
       const updatedSettings = {
         ...userData.settings,
         games: {
           ...userData.settings?.games,
-          cardDropEnabled: !cardDropEnabled
+          cardDropEnabled: newEnabled
         }
       };
       
-      saveUserData({
+      await saveUserData({
         ...userData,
         settings: updatedSettings
       });
       
-      setCardDropEnabled(!cardDropEnabled);
+      setCardDropEnabled(newEnabled);
     }
   };
   
@@ -233,41 +240,121 @@ export const GamesHub = () => {
   };
   
   // 获取当前页的卡片，不足的用空白格子填充，并从用户数据中获取实际的拥有数量
-  const getCurrentPageCards = () => {
-    const userData = loadUserData(username);
-    const cardCollections = userData?.cardCollections || {};
-    
-    // 获取当前页的原始卡片
-    const startIndex = currentPage * cardsPerPage;
-    const endIndex = startIndex + cardsPerPage;
-    const currentCards = cards.slice(startIndex, endIndex);
-    
-    // 更新卡片的拥有状态和数量
-    const updatedCards = currentCards.map(card => {
-      const count = cardCollections[card.number] || 0;
-      return {
-        ...card,
-        count,
-        owned: count > 0
-      };
-    });
-    
-    // 不足cardsPerPage张的部分用空白格子填充
-    const filledCards = [...updatedCards];
-    while (filledCards.length < cardsPerPage) {
-      filledCards.push({
-        id: `empty-${filledCards.length + startIndex}`,
-        number: '',
-        name: '',
-        description: '',
-        rarity: 'common' as const,
-        owned: false,
-        count: 0
+  useEffect(() => {
+    const fetchCurrentPageCards = async () => {
+      const userData = await loadUserData(username);
+      const cardCollections = userData?.cardCollections || {};
+      
+      // 卡片数据 - 这里直接定义，避免依赖外部cards数组
+      const localCards: Card[] = [
+        {
+          id: 'card-1',
+          number: '#001',
+          name: '🏃‍♂️ 跑路新手',
+          description: '第一次想跑路的你',
+          rarity: 'common',
+          owned: true,
+          count: 3
+        },
+        {
+          id: 'card-2',
+          number: '#002',
+          name: '💼 工作日噩梦',
+          description: '周一早上的你',
+          rarity: 'common',
+          owned: true,
+          count: 5
+        },
+        {
+          id: 'card-3',
+          number: '#003',
+          name: '☕ 咖啡续命',
+          description: '靠咖啡撑过一天',
+          rarity: 'uncommon',
+          owned: true,
+          count: 2
+        },
+        {
+          id: 'card-4',
+          number: '#004',
+          name: '🌅 摸鱼达人',
+          description: '上班摸鱼的高手',
+          rarity: 'uncommon',
+          owned: false,
+          count: 0
+        },
+        {
+          id: 'card-5',
+          number: '#005',
+          name: '🏖️ 向往自由',
+          description: '梦想中的海滩',
+          rarity: 'rare',
+          owned: true,
+          count: 1
+        },
+        {
+          id: 'card-6',
+          number: '#006',
+          name: '🚀 说走就走',
+          description: '勇敢辞职的你',
+          rarity: 'rare',
+          owned: false,
+          count: 0
+        },
+        {
+          id: 'card-7',
+          number: '#007',
+          name: '🌟 新的开始',
+          description: '开启新的人生',
+          rarity: 'legendary',
+          owned: false,
+          count: 0
+        },
+        {
+          id: 'card-8',
+          number: '#008',
+          name: '🌈 自由翱翔',
+          description: '实现财务自由',
+          rarity: 'legendary',
+          owned: false,
+          count: 0
+        },
+      ];
+      
+      // 获取当前页的原始卡片
+      const startIndex = currentPage * cardsPerPage;
+      const endIndex = startIndex + cardsPerPage;
+      const currentCards = localCards.slice(startIndex, endIndex);
+      
+      // 更新卡片的拥有状态和数量
+      const updatedCards = currentCards.map(card => {
+        const count = cardCollections[card.number] || 0;
+        return {
+          ...card,
+          count,
+          owned: count > 0
+        };
       });
-    }
+      
+      // 不足cardsPerPage张的部分用空白格子填充
+      const filledCards = [...updatedCards];
+      while (filledCards.length < cardsPerPage) {
+        filledCards.push({
+          id: `empty-${filledCards.length + startIndex}`,
+          number: '',
+          name: '',
+          description: '',
+          rarity: 'common' as const,
+          owned: false,
+          count: 0
+        });
+      }
+      
+      setCurrentPageCards(filledCards);
+    };
     
-    return filledCards;
-  };
+    fetchCurrentPageCards();
+  }, [currentPage, username]);
   return (
     <Layout username={username} onLogout={handleLogout}>
       <div className="games-hub">
@@ -523,7 +610,7 @@ export const GamesHub = () => {
                 margin: '1rem 0',
                 justifyContent: 'center'
               }}>
-                {getCurrentPageCards().map((card) => {
+                {currentPageCards.map((card) => {
                   // 检查是否为空白卡片
                   const isEmptyCard = !card.name;
                   

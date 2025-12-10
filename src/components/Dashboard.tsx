@@ -21,10 +21,7 @@ interface DashboardProps {
 }
 
 export const Dashboard = ({ username, onLogout, showHeader = true }: DashboardProps) => {
-  const [userData, setUserData] = useState<UserData>(() => {
-    const data = loadUserData(username);
-    return data || { username, hits: [] };
-  });
+  const [userData, setUserData] = useState<UserData>({ username, hits: [] });
   const [isAnimating, setIsAnimating] = useState(false);
   const [quote, setQuote] = useState<string>(() => getRandomQuote());
   const [importDialog, setImportDialog] = useState<{ show: boolean; data: UserData | null }>({ show: false, data: null });
@@ -47,6 +44,21 @@ export const Dashboard = ({ username, onLogout, showHeader = true }: DashboardPr
 
     return () => clearInterval(timer);
   }, []);
+
+  // Load user data on mount
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const data = await loadUserData(username);
+      if (data) {
+        setUserData(data);
+        if (data.settings?.games) {
+          setGameSettings(data.settings.games);
+        }
+      }
+    };
+
+    fetchUserData();
+  }, [username]);
 
   // Format current time using user's timezone (24-hour format)
   const formattedTime = currentTime.toLocaleTimeString([], {
@@ -78,18 +90,26 @@ export const Dashboard = ({ username, onLogout, showHeader = true }: DashboardPr
 
   // Load game settings from user data
   useEffect(() => {
-    const userData = loadUserData(username);
-    if (userData?.settings?.games) {
-      setGameSettings(userData.settings.games);
-    }
-  }, [username]);
+    const fetchGameSettings = async () => {
+      try {
+        const userData = await loadUserData(username);
+        if (userData?.settings?.games) {
+          setGameSettings(userData.settings.games);
+        }
+      } catch (error) {
+        console.error('Failed to load game settings:', error);
+      }
+    };
+    
+    fetchGameSettings();
+  }, [username, userData]);
 
-  // Set random correct button when game settings change or after each attempt
+  // Set random correct button when game settings change
   useEffect(() => {
     if (gameSettings.forkInTheRoadEnabled) {
       setCorrectButtonIndex(Math.floor(Math.random() * 3));
     }
-  }, [gameSettings.forkInTheRoadEnabled, correctButtonIndex]);
+  }, [gameSettings.forkInTheRoadEnabled]);
 
   const handleHit = (buttonIndex?: number) => {
     if (isAnimating) return;
@@ -288,13 +308,17 @@ export const Dashboard = ({ username, onLogout, showHeader = true }: DashboardPr
 
     // Add hit to storage only if it's the correct button or not in Fork game mode
     if (isCorrectButton) {
-      const newHit = addHit(username);
-      if (newHit) {
-        setUserData(prev => ({
-          ...prev,
-          hits: [...prev.hits, newHit],
-        }));
-      }
+      const addHitAsync = async () => {
+        const newHit = await addHit(username);
+        if (newHit) {
+          setUserData(prev => ({
+            ...prev,
+            hits: [...prev.hits, newHit],
+          }));
+        }
+      };
+      
+      addHitAsync();
 
       // Change quote on successful hit
       setQuote(getRandomQuote());

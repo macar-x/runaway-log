@@ -14,7 +14,7 @@ export const zh_tw = {
     hub_title: "🎮 遊戲模式",
     hub_subtitle: "追蹤您跑路夢想的不同方式",
     card_drop: "卡牌掉落",
-    card_drop_description: "每次跑路夢想收集隨機卡牌，打造您的收藏！",
+    card_drop_description: "每次跑路夢想收集隨機卡牌，打造您的收藏！（暫時不會發生任何事）",
     fork_in_the_road: "岔路選擇",
     fork_in_the_road_description: "選擇正確的道路！三個按鈕中只有一個會記錄成功的跑路。",
     slot_machine: "老虎機",
@@ -120,12 +120,30 @@ export const zh_tw = {
   login: {
     title: "🏃 跑路模擬器",
     subtitle: "記錄你的跑路夢想",
+    register_title: "🏃 註冊帳號",
+    register_subtitle: "創建你的跑路帳號，跨設備同步數據",
     slogan: "每一次點擊都代表一個自由的夢想",
     username: "使用者名稱",
     password: "密碼",
+    email: "電子郵件",
     placeholder_username: "請輸入使用者名稱",
-    placeholder_password: "密碼（暫時不支援）",
-    button: "開始跑路 🚀"
+    placeholder_password: "請輸入密碼",
+    placeholder_email: "請輸入電子郵件（可選）",
+    passwordless_login: "無需輸入密碼，直接登入",
+    button: "開始跑路 🚀",
+    register_button: "註冊帳號",
+    switch_to_login: "已有帳號？立即登入",
+    switch_to_register: "還沒有帳號？立即註冊",
+    loading: "處理中...",
+    error: {
+      username_required: "請輸入使用者名稱",
+      password_required: "請輸入密碼",
+      password_too_short: "密碼長度不能少於6個字元",
+      username_taken: "使用者名稱已被占用",
+      invalid_credentials: "使用者名稱或密碼錯誤",
+      login_failed: "登入失敗，請稍後重試",
+      registration_failed: "註冊失敗，請稍後重試"
+    }
   },
   meta: {
     title: "跑路模擬器 - 記錄你的跑路夢想",
@@ -140,6 +158,7 @@ export const zh_tw = {
     timezone: "🌍 時區",
     language: "🌐 語言",
     data_management: "💾 數據管理",
+    import_export: "📤 匯入匯出",
     export_data: "📤 匯出數據",
     import_data: "📥 匯入數據",
     print_calendar: "🖨️ 列印日曆",
@@ -149,6 +168,13 @@ export const zh_tw = {
     powered_by: "由 <strong>Ona</strong> AI 軟件工程代理驅動",
     version: "版本 1.1.0 • MIT 許可證 • © 2025",
     regional_settings: "🌍 區域設定",
-    appearance_settings: "🎨 外觀設定"
+    appearance_settings: "🎨 外觀設定",
+    local_storage: "本地儲存",
+    local_storage_description: "資料僅儲存在當前裝置上，離線可用，隱私安全",
+    cloud_storage: "雲端儲存",
+    cloud_storage_description: "資料同步到雲端，跨裝置訪問，實時更新",
+    cloud_storage_description_disabled: "資料同步到雲端，跨裝置訪問，實時更新 (即將推出)",
+    hybrid_storage: "混合模式",
+    hybrid_storage_description: "結合本地儲存和雲端儲存，離線可用並自動同步"
   },
 };

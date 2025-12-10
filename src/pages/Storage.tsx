@@ -17,8 +17,8 @@ export const Storage = () => {
     window.location.reload();
   };
 
-  const handleExport = () => {
-    const userData = loadUserData(username);
+  const handleExport = async () => {
+    const userData = await loadUserData(username);
     if (userData) {
       exportUserData(userData);
     }
@@ -44,10 +44,10 @@ export const Storage = () => {
     }
   };
   
-  const handleImportMerge = () => {
+  const handleImportMerge = async () => {
     if (!importDialog.data) return;
     
-    const userData = loadUserData(username) || { username, hits: [] };
+    const userData = await loadUserData(username) || { username, hits: [] };
     const existingIds = new Set(userData.hits.map(h => h.id));
     const newHits = importDialog.data.hits.filter(h => !existingIds.has(h.id));
     const mergedData = {
@@ -55,7 +55,7 @@ export const Storage = () => {
       hits: [...userData.hits, ...newHits].sort((a, b) => a.timestamp - b.timestamp),
     };
     
-    saveUserData(mergedData);
+    await saveUserData(mergedData);
     
     setImportDialog({ show: false, data: null });
     alert(i18n.t('errors.import_merged', { count: newHits.length }));
@@ -63,16 +63,16 @@ export const Storage = () => {
     window.location.reload();
   };
   
-  const handleImportReplace = () => {
+  const handleImportReplace = async () => {
     if (!importDialog.data) return;
     
-    const userData = loadUserData(username) || { username, hits: [] };
+    const userData = await loadUserData(username) || { username, hits: [] };
     const replacedData = {
       ...userData,
       hits: importDialog.data.hits,
     };
     
-    saveUserData(replacedData);
+    await saveUserData(replacedData);
     
     setImportDialog({ show: false, data: null });
     alert(i18n.t('errors.import_replaced', { count: importDialog.data.hits.length }));

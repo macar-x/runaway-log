@@ -11,6 +11,8 @@ type NavigationProps = {
 export const Navigation = ({ username, onLogout }: NavigationProps) => {
   // Force re-render when language changes
   const [, setLanguageChangeTrigger] = useState(0);
+  // User menu state
+  const [userMenuOpen, setUserMenuOpen] = useState(false);
   
   useEffect(() => {
     const unsubscribe = i18n.onLanguageChange(() => {
@@ -19,6 +21,14 @@ export const Navigation = ({ username, onLogout }: NavigationProps) => {
     
     return () => unsubscribe();
   }, []);
+
+  const toggleUserMenu = () => {
+    setUserMenuOpen(!userMenuOpen);
+  };
+
+  const closeUserMenu = () => {
+    setUserMenuOpen(false);
+  };
 
   return (
     <nav className="pro-navigation">
@@ -35,22 +45,56 @@ export const Navigation = ({ username, onLogout }: NavigationProps) => {
           <NavLink to="/games" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
             {i18n.t('navigation.games')}
           </NavLink>
-          <NavLink to="/storage" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
-            {i18n.t('navigation.storage')}
-          </NavLink>
+          
           <NavLink to="/settings" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
             {i18n.t('navigation.settings')}
           </NavLink>
         </div>
 
         <div className="nav-actions">
-          <NavLink to="/profile" className="nav-user">
-            <span className="nav-user-icon">👤</span>
-            <span className="nav-username">{username}</span>
-          </NavLink>
-          <button onClick={onLogout} className="nav-logout">
-            {i18n.t('dashboard.logout')}
-          </button>
+          <div className="user-menu-container">
+            <button 
+              className="nav-user" 
+              onClick={toggleUserMenu}
+              aria-expanded={userMenuOpen}
+              aria-haspopup="true"
+            >
+              <span className="nav-user-icon">👤</span>
+              <span className="nav-username">{username}</span>
+              <span className="nav-user-menu-icon">☰</span>
+            </button>
+            
+            {userMenuOpen && (
+              <div className="user-menu">
+                <NavLink 
+                  to="/profile" 
+                  className="user-menu-item"
+                  onClick={closeUserMenu}
+                >
+                  <span className="user-menu-icon">👤</span>
+                  <span className="user-menu-text">个人资料</span>
+                </NavLink>
+                <NavLink 
+                  to="/about" 
+                  className="user-menu-item"
+                  onClick={closeUserMenu}
+                >
+                  <span className="user-menu-icon">ℹ️</span>
+                  <span className="user-menu-text">关于我们</span>
+                </NavLink>
+                <button 
+                  className="user-menu-item user-menu-item-logout"
+                  onClick={() => {
+                    closeUserMenu();
+                    onLogout();
+                  }}
+                >
+                  <span className="user-menu-icon">🚪</span>
+                  <span className="user-menu-text">退出登录</span>
+                </button>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </nav>
