@@ -72,4 +72,16 @@
     <profile>个人资料</profile>
     <games>游戏</games>
   </navigation>
+  
+  <!-- Login -->
+  <login>
+    <title>🏃 跑路模拟器</title>
+    <subtitle>记录你的跑路梦想</subtitle>
+    <slogan>"每一次点击都代表一个自由的梦想"</slogan>
+    <username>用户名</username>
+    <password>密码</password>
+    <placeholder_username>请输入用户名</placeholder_username>
+    <placeholder_password>密码（暂时不支持）</placeholder_password>
+    <button>开始跑路 🚀</button>
+  </login>
 </translations>

@@ -72,4 +72,16 @@
     <profile>Profile</profile>
     <games>Games</games>
   </navigation>
+  
+  <!-- Login -->
+  <login>
+    <title>🏃 Runaway Simulator</title>
+    <subtitle>Track your runaway dreams</subtitle>
+    <slogan>"Every click is a dream of freedom"</slogan>
+    <username>Username</username>
+    <password>Password</password>
+    <placeholder_username>Enter username</placeholder_username>
+    <placeholder_password>Password (not supported yet)</placeholder_password>
+    <button>Let's Go! 🚀</button>
+  </login>
 </translations>

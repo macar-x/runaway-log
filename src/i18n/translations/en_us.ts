@@ -117,6 +117,20 @@ export const en_us = {
     settings: "Settings",
     profile: "Profile"
   },
+  login: {
+    title: "🏃 The Runaway Simulator",
+    subtitle: "Track your runaway dreams",
+    slogan: "Every click is a dream of freedom",
+    username: "Username",
+    password: "Password",
+    placeholder_username: "Enter username",
+    placeholder_password: "Password (not supported yet)",
+    button: "Let's Go! 🚀"
+  },
+  meta: {
+    title: "RunawayLog - Track Your Escape Dreams",
+    description: "Track your desire to escape the daily grind. Every click is a dream of freedom."
+  },
   settings: {
     title: "⚙️ Settings",
     theme: "🎨 Theme",

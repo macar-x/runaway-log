@@ -111,3 +111,54 @@
   opacity: 0.5;
   cursor: not-allowed;
 }
+
+.login-form-group {
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
+
+.login-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 0.95rem;
+}
+
+.login-input.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background-color: var(--bg-secondary);
+}
+
+.login-input.disabled::placeholder {
+  color: var(--text-tertiary);
+}
+
+/* Language Selector */
+.login-language-selector {
+  text-align: right;
+  margin-bottom: 1.5rem;
+}
+
+.language-select {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.language-select:focus {
+  outline: none;
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.language-select option {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+}
