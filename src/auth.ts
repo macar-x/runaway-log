@@ -147,6 +147,7 @@ const loadUserCredentials = (username: string): string | null => {
 
 /**
  * Authenticate user with username and password
+ * If user doesn't exist, create a new user automatically
  */
 export const login = async (username: string, password: string): Promise<UserData> => {
   // For now, we'll use a local implementation
@@ -156,20 +157,38 @@ export const login = async (username: string, password: string): Promise<UserDat
   await new Promise(resolve => setTimeout(resolve, 500));
   
   // Get user data
-  const userData = JSON.parse(localStorage.getItem('runawaylog-data') || '{}')[username];
+  const allUserData = JSON.parse(localStorage.getItem('runawaylog-data') || '{}');
+  let userData = allUserData[username];
   
+  // If user doesn't exist, create a new user automatically
   if (!userData) {
-    throw new Error('User data not found');
-  }
-  
-  // Check if password is provided, if not, skip password validation (allow passwordless login)
-  if (password.trim()) {
-    // Verify password only if it's provided
-    const storedHash = loadUserCredentials(username);
-    const passwordHash = hashPassword(password);
+    // Create new user
+    userData = {
+      username,
+      hits: [],
+      profile: {
+        registrationDate: Date.now(),
+      },
+    };
     
-    if (!storedHash || storedHash !== passwordHash) {
-      throw new Error('Invalid username or password');
+    // Save new user data
+    allUserData[username] = userData;
+    localStorage.setItem('runawaylog-data', JSON.stringify(allUserData));
+    
+    // If password is provided, save credentials
+    if (password.trim()) {
+      saveUserCredentials(username, password);
+    }
+  } else {
+    // Check if password is provided, if not, skip password validation (allow passwordless login)
+    if (password.trim()) {
+      // Verify password only if it's provided
+      const storedHash = loadUserCredentials(username);
+      const passwordHash = hashPassword(password);
+      
+      if (!storedHash || storedHash !== passwordHash) {
+        throw new Error('Invalid username or password');
+      }
     }
   }
   
