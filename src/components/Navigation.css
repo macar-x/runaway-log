@@ -12,9 +12,10 @@
   max-width: 1400px;
   margin: 0 auto;
   padding: 1rem 2rem;
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  justify-content: space-between;
+  width: 100%;
   gap: 2rem;
 }
 
@@ -25,6 +26,7 @@
   font-weight: 700;
   font-size: 1.3rem;
   color: var(--text-primary);
+  justify-self: start;
 }
 
 .nav-logo {
@@ -40,8 +42,7 @@
 
 .nav-links {
   display: flex;
-  gap: 0.5rem;
-  flex: 1;
+  gap: 1rem;
   justify-content: center;
 }
 
@@ -82,6 +83,7 @@
   display: flex;
   align-items: center;
   gap: 0.75rem;
+  justify-self: end;
 }
 
 .nav-user {
@@ -131,6 +133,91 @@
 .nav-logout:hover {
   background: #e0e0e0;
   color: #333;
+}
+
+/* User Menu Styles */
+.user-menu-container {
+  position: relative;
+  display: inline-block;
+}
+
+.nav-user {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: var(--bg-secondary);
+  border: none;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  height: 36px;
+  box-sizing: border-box;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.nav-user:hover {
+  background: var(--bg-secondary-hover);
+}
+
+.nav-user-arrow {
+  font-size: 0.7rem;
+  transition: transform 0.3s ease;
+}
+
+.user-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 0.5rem;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  box-shadow: var(--shadow-lg);
+  min-width: 180px;
+  z-index: 1000;
+  overflow: hidden;
+}
+
+.user-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.user-menu-item:hover {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+.user-menu-icon {
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+.user-menu-text {
+  flex: 1;
+  font-weight: 500;
+}
+
+.user-menu-item-logout {
+  color: var(--error-color);
+}
+
+.user-menu-item-logout:hover {
+  background: var(--bg-error-hover);
 }
 
 @media (max-width: 1024px) {

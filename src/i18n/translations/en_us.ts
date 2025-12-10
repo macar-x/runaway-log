@@ -120,12 +120,29 @@ export const en_us = {
   login: {
     title: "🏃 The Runaway Simulator",
     subtitle: "Track your runaway dreams",
+    register_title: "🏃 Create Account",
+    register_subtitle: "Create your account for cross-device sync",
     slogan: "Every click is a dream of freedom",
     username: "Username",
     password: "Password",
+    email: "Email",
     placeholder_username: "Enter username",
-    placeholder_password: "Password (not supported yet)",
-    button: "Let's Go! 🚀"
+    placeholder_password: "Enter password",
+    placeholder_email: "Enter email (optional)",
+    button: "Let's Go! 🚀",
+    register_button: "Create Account",
+    switch_to_login: "Already have an account? Login now",
+    switch_to_register: "Don't have an account? Register now",
+    loading: "Processing...",
+    error: {
+      username_required: "Please enter username",
+      password_required: "Please enter password",
+      password_too_short: "Password must be at least 6 characters",
+      username_taken: "Username is already taken",
+      invalid_credentials: "Invalid username or password",
+      login_failed: "Login failed, please try again later",
+      registration_failed: "Registration failed, please try again later"
+    }
   },
   meta: {
     title: "RunawayLog - Track Your Escape Dreams",
@@ -140,6 +157,7 @@ export const en_us = {
     timezone: "🌍 Timezone",
     language: "🌐 Language",
     data_management: "💾 Data Management",
+    import_export: "📤📥 Import/Export",
     export_data: "📤 Export Data",
     import_data: "📥 Import Data",
     print_calendar: "🖨️ Print Calendar",
@@ -149,6 +167,12 @@ export const en_us = {
     powered_by: "Powered by <strong>Ona</strong>, the AI software engineering agent",
     version: "Version 1.1.0 • MIT License • © 2025",
     regional_settings: "🌍 Regional Settings",
-    appearance_settings: "🎨 Appearance Settings"
+    appearance_settings: "🎨 Appearance Settings",
+    local_storage: "Local Storage",
+    local_storage_description: "Data stored only on this device, offline available, privacy secure",
+    cloud_storage: "Cloud Storage",
+    cloud_storage_description: "Data synced to cloud, accessible across devices, real-time updates",
+    hybrid_storage: "Hybrid Mode",
+    hybrid_storage_description: "Combines local and cloud storage, offline available with auto-sync"
   },
 };

@@ -20,23 +20,27 @@ export const Profile = () => {
   };
 
   useEffect(() => {
-    let data = loadUserData(username);
-    if (!data) {
-      // Create default user data for new users
-      data = {
-        username,
-        hits: [],
-        profile: {
-          registrationDate: Date.now(),
-        },
-      };
-      saveUserData(data);
-    }
-    setUserData(data);
-    setEmail(data.profile?.email || '');
+    const fetchUserData = async () => {
+      let data = await loadUserData(username);
+      if (!data) {
+        // Create default user data for new users
+        data = {
+          username,
+          hits: [],
+          profile: {
+            registrationDate: Date.now(),
+          },
+        };
+        await saveUserData(data);
+      }
+      setUserData(data);
+      setEmail(data.profile?.email || '');
+    };
+    
+    fetchUserData();
   }, [username]);
 
-  const handleSaveEmail = () => {
+  const handleSaveEmail = async () => {
     if (userData) {
       const updatedData: UserData = {
         ...userData,
@@ -46,7 +50,7 @@ export const Profile = () => {
           registrationDate: userData.profile?.registrationDate || Date.now(),
         },
       };
-      saveUserData(updatedData);
+      await saveUserData(updatedData);
       setUserData(updatedData);
       setIsEditing(false);
     }
@@ -83,13 +87,6 @@ export const Profile = () => {
                   alt={`${username}'s avatar`}
                   className="profile-avatar"
                 />
-                <div className="profile-avatar-hint">
-                  {userData.profile?.email ? (
-                    <span>Powered by Gravatar</span>
-                  ) : (
-                    <span>Add email to use Gravatar</span>
-                  )}
-                </div>
               </div>
 
               <div className="profile-info">
@@ -171,16 +168,6 @@ export const Profile = () => {
                 </div>
               </div>
             </div>
-          </div>
-
-          <div className="profile-note">
-            <p>
-              💡 <strong>Tip:</strong> Add your email to get a personalized avatar from{' '}
-              <a href="https://gravatar.com" target="_blank" rel="noopener noreferrer">
-                Gravatar
-              </a>
-              . Your email is stored locally and never shared.
-            </p>
           </div>
         </div>
       </div>

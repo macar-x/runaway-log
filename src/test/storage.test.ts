@@ -6,25 +6,27 @@ describe('storage', () => {
   beforeEach(() => {
     localStorage.clear();
     vi.clearAllMocks();
+    // Set timezone to UTC for consistent test results
+    localStorage.setItem('runawaylog-timezone', 'UTC');
   });
 
   describe('loadUserData', () => {
-    it('returns null when no data exists', () => {
-      const result = loadUserData('testuser');
+    it('returns null when no data exists', async () => {
+      const result = await loadUserData('testuser');
       expect(result).toBeNull();
     });
 
-    it('returns null when user does not exist', () => {
+    it('returns null when user does not exist', async () => {
       const data = {
         otheruser: { username: 'otheruser', hits: [] }
       };
       localStorage.setItem('runawaylog-data', JSON.stringify(data));
       
-      const result = loadUserData('testuser');
+      const result = await loadUserData('testuser');
       expect(result).toBeNull();
     });
 
-    it('loads existing user data', () => {
+    it('loads existing user data', async () => {
       const userData: UserData = {
         username: 'testuser',
         hits: [
@@ -34,26 +36,26 @@ describe('storage', () => {
       const data = { testuser: userData };
       localStorage.setItem('runawaylog-data', JSON.stringify(data));
       
-      const result = loadUserData('testuser');
+      const result = await loadUserData('testuser');
       expect(result).toEqual(userData);
     });
 
-    it('handles corrupted data gracefully', () => {
+    it('handles corrupted data gracefully', async () => {
       localStorage.setItem('runawaylog-data', 'invalid json');
       
-      const result = loadUserData('testuser');
+      const result = await loadUserData('testuser');
       expect(result).toBeNull();
     });
   });
 
   describe('saveUserData', () => {
-    it('saves new user data', () => {
+    it('saves new user data', async () => {
       const userData: UserData = {
         username: 'testuser',
         hits: []
       };
       
-      saveUserData(userData);
+      await saveUserData(userData);
       
       const stored = localStorage.getItem('runawaylog-data');
       expect(stored).toBeTruthy();
@@ -61,12 +63,12 @@ describe('storage', () => {
       expect(parsed.testuser).toEqual(userData);
     });
 
-    it('updates existing user data', () => {
+    it('updates existing user data', async () => {
       const initialData: UserData = {
         username: 'testuser',
         hits: [{ id: '1', timestamp: 1234567890000, date: '2009-02-13' }]
       };
-      saveUserData(initialData);
+      await saveUserData(initialData);
       
       const updatedData: UserData = {
         username: 'testuser',
@@ -75,19 +77,19 @@ describe('storage', () => {
           { id: '2', timestamp: 1234567900000, date: '2009-02-13' }
         ]
       };
-      saveUserData(updatedData);
+      await saveUserData(updatedData);
       
       const stored = localStorage.getItem('runawaylog-data');
       const parsed = JSON.parse(stored!);
       expect(parsed.testuser.hits).toHaveLength(2);
     });
 
-    it('preserves other users data', () => {
+    it('preserves other users data', async () => {
       const user1: UserData = { username: 'user1', hits: [] };
       const user2: UserData = { username: 'user2', hits: [] };
       
-      saveUserData(user1);
-      saveUserData(user2);
+      await saveUserData(user1);
+      await saveUserData(user2);
       
       const stored = localStorage.getItem('runawaylog-data');
       const parsed = JSON.parse(stored!);
@@ -97,8 +99,8 @@ describe('storage', () => {
   });
 
   describe('addHit', () => {
-    it('creates new user and adds hit', () => {
-      const hit = addHit('testuser');
+    it('creates new user and adds hit', async () => {
+      const hit = await addHit('testuser');
       
       expect(hit).toBeTruthy();
       expect(hit?.id).toBeTruthy();
@@ -106,31 +108,31 @@ describe('storage', () => {
       expect(hit?.date).toMatch(/^\d{4}-\d{2}-\d{2}$/);
     });
 
-    it('adds hit to existing user', () => {
+    it('adds hit to existing user', async () => {
       const userData: UserData = {
         username: 'testuser',
         hits: [{ id: '1', timestamp: 1234567890000, date: '2009-02-13' }]
       };
-      saveUserData(userData);
+      await saveUserData(userData);
       
-      const hit = addHit('testuser');
+      const hit = await addHit('testuser');
       
       expect(hit).toBeTruthy();
       
-      const loaded = loadUserData('testuser');
+      const loaded = await loadUserData('testuser');
       expect(loaded?.hits).toHaveLength(2);
     });
 
-    it('generates unique IDs', () => {
-      const hit1 = addHit('testuser');
-      const hit2 = addHit('testuser');
+    it('generates unique IDs', async () => {
+      const hit1 = await addHit('testuser');
+      const hit2 = await addHit('testuser');
       
       expect(hit1?.id).not.toEqual(hit2?.id);
     });
 
-    it('stores current timestamp', () => {
+    it('stores current timestamp', async () => {
       const before = Date.now();
-      const hit = addHit('testuser');
+      const hit = await addHit('testuser');
       const after = Date.now();
       
       expect(hit?.timestamp).toBeGreaterThanOrEqual(before);

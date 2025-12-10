@@ -120,12 +120,29 @@ export const zh_cn = {
   login: {
     title: "🏃 跑路模拟器",
     subtitle: "记录你的跑路梦想",
+    register_title: "🏃 注册账号",
+    register_subtitle: "创建你的跑路账号，跨设备同步数据",
     slogan: "每一次点击都代表一个自由的梦想",
     username: "用户名",
     password: "密码",
+    email: "邮箱",
     placeholder_username: "请输入用户名",
-    placeholder_password: "密码（暂时不支持）",
-    button: "开始跑路 🚀"
+    placeholder_password: "请输入密码",
+    placeholder_email: "请输入邮箱（可选）",
+    button: "开始跑路 🚀",
+    register_button: "注册账号",
+    switch_to_login: "已有账号？立即登录",
+    switch_to_register: "还没有账号？立即注册",
+    loading: "处理中...",
+    error: {
+      username_required: "请输入用户名",
+      password_required: "请输入密码",
+      password_too_short: "密码长度不能少于6个字符",
+      username_taken: "用户名已被占用",
+      invalid_credentials: "用户名或密码错误",
+      login_failed: "登录失败，请稍后重试",
+      registration_failed: "注册失败，请稍后重试"
+    }
   },
   meta: {
     title: "跑路模拟器 - 记录你的跑路梦想",
@@ -140,6 +157,7 @@ export const zh_cn = {
     timezone: "🌍 时区",
     language: "🌐 语言",
     data_management: "💾 数据管理",
+    import_export: "📤📥 导入导出",
     export_data: "📤 导出数据",
     import_data: "📥 导入数据",
     print_calendar: "🖨️ 打印日历",
@@ -149,6 +167,12 @@ export const zh_cn = {
     powered_by: "由 <strong>Ona</strong> AI 软件工程代理驱动",
     version: "版本 1.1.0 • MIT 许可证 • © 2025",
     regional_settings: "🌍 区域设置",
-    appearance_settings: "🎨 外观设置"
+    appearance_settings: "🎨 外观设置",
+    local_storage: "本地存储",
+    local_storage_description: "数据仅存储在当前设备上，离线可用，隐私安全",
+    cloud_storage: "云端存储",
+    cloud_storage_description: "数据同步到云端，跨设备访问，实时更新",
+    hybrid_storage: "混合模式",
+    hybrid_storage_description: "结合本地存储和云端存储，离线可用并自动同步"
   },
 };

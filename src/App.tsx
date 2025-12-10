@@ -4,7 +4,7 @@ import { Login } from './components/Login';
 import { Home } from './pages/Home';
 import { GamesHub } from './pages/games/GamesHub';
 import { CardGame } from './pages/games/CardGame';
-import { Storage } from './pages/Storage';
+
 import { Releases } from './pages/Releases';
 import { Settings } from './pages/Settings';
 import { Profile } from './pages/Profile';
@@ -36,7 +36,7 @@ function AppContent() {
         <Route path="/" element={<Home username={username} onLogout={handleLogout} />} />
         <Route path="/games" element={<GamesHub />} />
         <Route path="/games/cards" element={<CardGame />} />
-        <Route path="/storage" element={<Storage />} />
+
         <Route path="/releases" element={<Releases />} />
         <Route path="/settings" element={<Settings />} />
         <Route path="/profile" element={<Profile />} />
