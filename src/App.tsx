@@ -8,6 +8,7 @@ import { CardGame } from './pages/games/CardGame';
 import { Releases } from './pages/Releases';
 import { Settings } from './pages/Settings';
 import { Profile } from './pages/Profile';
+import { About } from './pages/About';
 import { i18n } from './i18n/i18n';
 import './App.css';
 
@@ -40,6 +41,7 @@ function AppContent() {
         <Route path="/releases" element={<Releases />} />
         <Route path="/settings" element={<Settings />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/about" element={<About />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </div>

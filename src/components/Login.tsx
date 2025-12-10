@@ -38,23 +38,25 @@ export const Login = ({ onLogin }: LoginProps) => {
       return;
     }
     
-    if (!password.trim()) {
-      setError(i18n.t('login.error.password_required'));
-      return;
-    }
-    
-    if (isRegistering && password.length < 6) {
-      setError(i18n.t('login.error.password_too_short'));
-      return;
-    }
-    
     setLoading(true);
     
     try {
       if (isRegistering) {
+        // 注册时仍需要密码
+        if (!password.trim()) {
+          setError(i18n.t('login.error.password_required'));
+          setLoading(false);
+          return;
+        }
+        if (password.length < 6) {
+          setError(i18n.t('login.error.password_too_short'));
+          setLoading(false);
+          return;
+        }
         await register(username.trim(), password.trim(), email.trim() || undefined);
       } else {
-        await login(username.trim(), password.trim());
+        // 登录时不需要密码，使用默认密码
+        await login(username.trim(), '');
       }
       
       onLogin(username.trim());
@@ -142,20 +144,37 @@ export const Login = ({ onLogin }: LoginProps) => {
             </div>
           )}
           
-          <div className="login-form-group">
-            <label htmlFor="password" className="login-label">
-              {i18n.t('login.password')}
-            </label>
-            <input
-              id="password"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder={i18n.t('login.placeholder_password')}
-              className="login-input"
-              disabled={loading}
-            />
-          </div>
+          {isRegistering ? (
+            <div className="login-form-group">
+              <label htmlFor="password" className="login-label">
+                {i18n.t('login.password')}
+              </label>
+              <input
+                id="password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder={i18n.t('login.placeholder_password')}
+                className="login-input"
+                disabled={loading}
+              />
+            </div>
+          ) : (
+            <div className="login-form-group">
+              <label htmlFor="password" className="login-label">
+                {i18n.t('login.password')}
+              </label>
+              <input
+                id="password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder={i18n.t('login.passwordless_login')}
+                className="login-input disabled"
+                disabled={true}
+              />
+            </div>
+          )}
           
           <button type="submit" className="login-button" disabled={loading}>
             {loading ? i18n.t('login.loading') : i18n.t(isRegistering ? 'login.register_button' : 'login.button')}

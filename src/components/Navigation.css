@@ -162,9 +162,12 @@
   background: var(--bg-secondary-hover);
 }
 
-.nav-user-arrow {
-  font-size: 0.7rem;
+.nav-user-menu-icon {
+  font-size: 0.9rem;
   transition: transform 0.3s ease;
+  font-weight: bold;
+  margin-left: 0.5rem;
+  line-height: 1;
 }
 
 .user-menu {
@@ -248,12 +251,16 @@
 
 @media (max-width: 768px) {
   .nav-container {
+    display: flex;
     flex-wrap: wrap;
+    justify-content: space-between;
     padding: 0.75rem 1rem;
+    grid-template-columns: auto;
   }
 
   .nav-brand {
     font-size: 1.1rem;
+    justify-self: auto;
   }
 
   .nav-logo {
@@ -275,10 +282,13 @@
 
   .nav-actions {
     gap: 0.5rem;
+    justify-self: auto;
   }
 
   .nav-user {
-    display: none;
+    display: flex;
+    padding: 0.4rem 0.75rem;
+    font-size: 0.85rem;
   }
 
   .nav-logout {

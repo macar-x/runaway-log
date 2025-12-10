@@ -304,20 +304,21 @@ export const Settings = () => {
                   </label>
                   
                   <label 
-                    className={`storage-mode-option ${selectedStorageMode === 'cloud' ? 'active' : ''}`}
-                    onClick={() => handleStorageModeChange('cloud')}
+                    className={`storage-mode-option ${selectedStorageMode === 'cloud' ? 'active' : ''} storage-mode-option-disabled`}
+                    onClick={() => {}}
                   >
                     <input 
                       type="radio" 
                       name="storage-mode" 
                       value="cloud" 
                       checked={selectedStorageMode === 'cloud'}
-                      onChange={() => handleStorageModeChange('cloud')}
+                      onChange={() => {}}
                       className="storage-mode-radio"
+                      disabled={true}
                     />
                     <div className="storage-mode-content">
                       <div className="storage-mode-name">☁️ {i18n.t('settings.cloud_storage')}</div>
-                      <div className="storage-mode-description">{i18n.t('settings.cloud_storage_description')}</div>
+                      <div className="storage-mode-description">{i18n.t('settings.cloud_storage_description_disabled')}</div>
                     </div>
                   </label>
                 </div>
@@ -363,28 +364,6 @@ export const Settings = () => {
                 </div>
               </div>
             )}
-            
-            {/* About */}
-            <div className="settings-card">
-              <h2 className="settings-card-title">{i18n.t('settings.about')}</h2>
-              <div className="about-content">
-                <div style={{ fontSize: '2rem', marginBottom: '1rem' }}>🏃</div>
-                <h3 style={{ marginBottom: '1rem' }}>{i18n.t('dashboard.brand_title')}</h3>
-                <p style={{ marginBottom: '1rem', lineHeight: '1.6' }}>
-                  {i18n.t('settings.about_description')}
-                </p>
-                <div style={{ 
-                  borderTop: '1px solid var(--border-color)',
-                  paddingTop: '1rem',
-                  marginTop: '1rem',
-                  fontSize: '0.9rem',
-                  color: 'var(--text-tertiary)'
-                }}>
-                  <p dangerouslySetInnerHTML={{ __html: i18n.t('settings.built_with') }}></p>
-                  <p style={{ marginTop: '1rem' }} dangerouslySetInnerHTML={{ __html: i18n.t('settings.version') }}></p>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </div>

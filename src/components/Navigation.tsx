@@ -61,7 +61,7 @@ export const Navigation = ({ username, onLogout }: NavigationProps) => {
             >
               <span className="nav-user-icon">👤</span>
               <span className="nav-username">{username}</span>
-              <span className="nav-user-arrow">{userMenuOpen ? '▼' : '▲'}</span>
+              <span className="nav-user-menu-icon">☰</span>
             </button>
             
             {userMenuOpen && (
@@ -75,7 +75,7 @@ export const Navigation = ({ username, onLogout }: NavigationProps) => {
                   <span className="user-menu-text">个人资料</span>
                 </NavLink>
                 <NavLink 
-                  to="/settings" 
+                  to="/about" 
                   className="user-menu-item"
                   onClick={closeUserMenu}
                 >

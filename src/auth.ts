@@ -155,19 +155,22 @@ export const login = async (username: string, password: string): Promise<UserDat
   // Simulate API call delay
   await new Promise(resolve => setTimeout(resolve, 500));
   
-  // Verify password
-  const storedHash = loadUserCredentials(username);
-  const passwordHash = hashPassword(password);
-  
-  if (!storedHash || storedHash !== passwordHash) {
-    throw new Error('Invalid username or password');
-  }
-  
   // Get user data
   const userData = JSON.parse(localStorage.getItem('runawaylog-data') || '{}')[username];
   
   if (!userData) {
     throw new Error('User data not found');
+  }
+  
+  // Check if password is provided, if not, skip password validation (allow passwordless login)
+  if (password.trim()) {
+    // Verify password only if it's provided
+    const storedHash = loadUserCredentials(username);
+    const passwordHash = hashPassword(password);
+    
+    if (!storedHash || storedHash !== passwordHash) {
+      throw new Error('Invalid username or password');
+    }
   }
   
   // Mock token generation

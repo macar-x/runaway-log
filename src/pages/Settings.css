@@ -353,6 +353,25 @@
   box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.2);
 }
 
+.storage-mode-option-disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.storage-mode-option-disabled:hover {
+  border-color: var(--border-color);
+  box-shadow: none;
+}
+
+.storage-mode-option-disabled .storage-mode-name {
+  color: var(--text-secondary);
+}
+
+.storage-mode-option-disabled .storage-mode-description {
+  color: var(--text-tertiary);
+}
+
 .storage-mode-radio {
   margin-top: 0.25rem;
   cursor: pointer;
