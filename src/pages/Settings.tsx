@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Layout } from '../components/Layout';
 import { colorThemes, getThemeById, applyTheme } from '../themes';
@@ -6,14 +6,11 @@ import { getTheme, setTheme, type Theme } from '../darkMode';
 import { getTimezones, getSavedTimezone, saveTimezone, getTimezoneDisplayName } from '../timezone';
 import { i18n } from '../i18n/i18n';
 import type { SupportedLanguage } from '../i18n/i18n';
-import { loadUserData } from '../storage';
-import { exportUserData, importUserData } from '../exportImport';
 import './Settings.css';
 
 export const Settings = () => {
   const navigate = useNavigate();
   const username = sessionStorage.getItem('runawaylog-username') || '';
-  const fileInputRef = useRef<HTMLInputElement>(null);
   
   const handleLogout = () => {
     sessionStorage.removeItem('runawaylog-username');
@@ -74,36 +71,7 @@ export const Settings = () => {
     i18n.setLanguage(newLanguage);
   };
   
-  const handleExport = () => {
-    const userData = loadUserData(username);
-    if (userData) {
-      exportUserData(userData);
-    }
-  };
-  
-  const handleImportClick = () => {
-    fileInputRef.current?.click();
-  };
-  
-  const handleImportFile = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (!file) return;
-    
-    try {
-      await importUserData(file);
-      window.location.reload();
-    } catch (error) {
-      alert(`❌ Import failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
-    }
-    
-    if (event.target) {
-      event.target.value = '';
-    }
-  };
-  
-  const handlePrint = () => {
-    window.print();
-  };
+  // Import/export and print functions have been moved to Storage page
   
   return (
     <Layout username={username} onLogout={handleLogout}>

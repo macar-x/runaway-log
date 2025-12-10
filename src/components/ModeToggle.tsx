@@ -2,18 +2,18 @@ import { useMode } from '../contexts/ModeContext';
 import './ModeToggle.css';
 
 export const ModeToggle = () => {
-  const { mode, toggleMode } = useMode();
+  useMode();
 
   return (
     <button
-      onClick={toggleMode}
-      className="mode-toggle-button"
-      aria-label={`Switch to ${mode === 'free' ? 'Pro' : 'Free'} mode`}
-      title={`Currently in ${mode === 'free' ? 'Free' : 'Pro'} mode`}
+      className="mode-toggle-button disabled"
+      aria-label="Currently in Pro mode"
+      title="Currently in Pro mode"
+      disabled
     >
-      <span className="mode-icon">{mode === 'pro' ? '⭐' : '🆓'}</span>
-      <span className="mode-text">{mode === 'pro' ? 'Pro' : 'Free'}</span>
-      <div className={`mode-toggle-switch ${mode === 'pro' ? 'active' : ''}`}>
+      <span className="mode-icon">⭐</span>
+      <span className="mode-text">Pro</span>
+      <div className="mode-toggle-switch active">
         <div className="mode-toggle-slider" />
       </div>
     </button>

@@ -1,19 +1,14 @@
 import { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
-import { SettingsMenu } from './SettingsMenu';
 import { i18n } from '../i18n/i18n';
 import './Navigation.css';
 
-interface NavigationProps {
+type NavigationProps = {
   username: string;
   onLogout: () => void;
-  onExport: () => void;
-  onImport: () => void;
-  onPrint: () => void;
-  onTimezoneChange: () => void;
-}
+};
 
-export const Navigation = ({ username, onLogout, onExport, onImport, onPrint, onTimezoneChange }: NavigationProps) => {
+export const Navigation = ({ username, onLogout }: NavigationProps) => {
   // Force re-render when language changes
   const [, setLanguageChangeTrigger] = useState(0);
   
