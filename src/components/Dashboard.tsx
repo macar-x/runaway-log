@@ -32,7 +32,7 @@ export const Dashboard = ({ username, onLogout, showHeader = true }: DashboardPr
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [timezone, setTimezone] = useState<string>(() => getSavedTimezone());
   const [currentTime, setCurrentTime] = useState(new Date());
-  const [gameSettings, setGameSettings] = useState<{ forkInTheRoadEnabled?: boolean }>({});
+  const [gameSettings, setGameSettings] = useState<{ forkInTheRoadEnabled?: boolean }>({ forkInTheRoadEnabled: false });
   const [correctButtonIndex, setCorrectButtonIndex] = useState(0);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const buttonRefs = useRef<(HTMLButtonElement | null)[]>([null, null, null]);
@@ -48,11 +48,12 @@ export const Dashboard = ({ username, onLogout, showHeader = true }: DashboardPr
     return () => clearInterval(timer);
   }, []);
 
-  // Format current time using user's timezone
+  // Format current time using user's timezone (24-hour format)
   const formattedTime = currentTime.toLocaleTimeString([], {
     hour: '2-digit',
     minute: '2-digit',
     second: '2-digit',
+    hour12: false,
     timeZone: timezone
   });
 

@@ -124,7 +124,7 @@ export const Settings = () => {
             
             {/* Regional Settings */}
             <div className="settings-card">
-              <h2 className="settings-card-title">🌍 Regional Settings</h2>
+              <h2 className="settings-card-title">{i18n.t('settings.regional_settings')}</h2>
               
               {/* Timezone */}
               <div className="setting-item">
@@ -177,7 +177,6 @@ export const Settings = () => {
                   color: 'var(--text-tertiary)'
                 }}>
                   <p dangerouslySetInnerHTML={{ __html: i18n.t('settings.built_with') }}></p>
-                  <p style={{ marginTop: '0.5rem' }} dangerouslySetInnerHTML={{ __html: i18n.t('settings.powered_by') }}></p>
                   <p style={{ marginTop: '1rem' }} dangerouslySetInnerHTML={{ __html: i18n.t('settings.version') }}></p>
                 </div>
               </div>
