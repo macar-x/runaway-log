@@ -64,10 +64,29 @@ class I18n {
   /**
    * Set the current language
    */
-  public setLanguage(lang: SupportedLanguage): void {
-    if (this.currentLanguage !== lang) {
-      this.currentLanguage = lang;
-      localStorage.setItem(this.LANGUAGE_KEY, lang);
+  public setLanguage(lang: string): void {
+    // Normalize language code to supported format
+    let normalizedLang: SupportedLanguage;
+    switch (lang) {
+      case 'en':
+      case 'en_us':
+        normalizedLang = 'en_us';
+        break;
+      case 'zh':
+      case 'zh_cn':
+        normalizedLang = 'zh_cn';
+        break;
+      case 'zh_tw':
+      case 'zh_hk':
+        normalizedLang = 'zh_tw';
+        break;
+      default:
+        normalizedLang = 'en_us';
+    }
+    
+    if (this.currentLanguage !== normalizedLang) {
+      this.currentLanguage = normalizedLang;
+      localStorage.setItem(this.LANGUAGE_KEY, normalizedLang);
       this.notifyListeners();
     }
   }

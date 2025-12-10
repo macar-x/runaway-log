@@ -1,7 +1,5 @@
-export type AppMode = 'free' | 'pro';
+export type AppMode = 'pro';
 
 export interface ModeContextType {
   mode: AppMode;
-  toggleMode: () => void;
-  setMode: (mode: AppMode) => void;
 }

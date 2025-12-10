@@ -20,11 +20,20 @@ export const Profile = () => {
   };
 
   useEffect(() => {
-    const data = loadUserData(username);
-    if (data) {
-      setUserData(data);
-      setEmail(data.profile?.email || '');
+    let data = loadUserData(username);
+    if (!data) {
+      // Create default user data for new users
+      data = {
+        username,
+        hits: [],
+        profile: {
+          registrationDate: Date.now(),
+        },
+      };
+      saveUserData(data);
     }
+    setUserData(data);
+    setEmail(data.profile?.email || '');
   }, [username]);
 
   const handleSaveEmail = () => {
@@ -51,7 +60,7 @@ export const Profile = () => {
     );
   }
 
-  const avatarUrl = getGravatarUrl(userData.profile?.email, 200);
+  const avatarUrl = getGravatarUrl(userData.profile?.email, 200, username);
   const registrationDate = userData.profile?.registrationDate || Date.now();
   const memberSince = formatMemberSince(registrationDate);
   const joinDate = new Date(registrationDate).toLocaleDateString('en-US', {

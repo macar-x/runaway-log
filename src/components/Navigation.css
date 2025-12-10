@@ -95,6 +95,13 @@
   color: var(--text-primary);
   height: 36px;
   box-sizing: border-box;
+  text-decoration: none;
+}
+
+.nav-user:hover {
+  text-decoration: none;
+  color: var(--text-primary);
+  background: var(--bg-secondary);
 }
 
 .nav-user-icon {

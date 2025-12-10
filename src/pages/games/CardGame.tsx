@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { Layout } from '../../components/Layout';
+import { i18n } from '../../i18n/i18n';
 
 export const CardGame = () => {
   const navigate = useNavigate();
@@ -31,10 +32,10 @@ export const CardGame = () => {
       }}>
         <div style={{ fontSize: '5rem', marginBottom: '1rem' }}>🃏</div>
         <h1 style={{ fontSize: '2.5rem', marginBottom: '1rem', color: 'var(--text-primary)' }}>
-          Card Drop Game
+          {i18n.t('games.card_game_title')}
         </h1>
         <p style={{ fontSize: '1.2rem', color: 'var(--text-secondary)', marginBottom: '2rem' }}>
-          Coming in the next update! Collect random cards with each escape dream.
+          {i18n.t('games.card_game_description')}
         </p>
         <div style={{ 
           background: 'var(--bg-secondary)', 
@@ -42,17 +43,17 @@ export const CardGame = () => {
           borderRadius: '12px',
           marginBottom: '1rem'
         }}>
-          <h3 style={{ color: 'var(--text-primary)', marginBottom: '0.5rem' }}>Features:</h3>
+          <h3 style={{ color: 'var(--text-primary)', marginBottom: '0.5rem' }}>{i18n.t('games.card_game_features')}</h3>
           <ul style={{ 
             textAlign: 'left', 
             color: 'var(--text-secondary)',
             lineHeight: '1.8'
           }}>
-            <li>🎴 Collectible card system with 4 rarity levels</li>
-            <li>✨ Random card drops with each hit</li>
-            <li>📚 Card gallery to view your collection</li>
-            <li>🏆 Achievement system for completing sets</li>
-            <li>🎨 Beautiful card designs and animations</li>
+            <li>{i18n.t('games.card_game_feature_1')}</li>
+            <li>{i18n.t('games.card_game_feature_2')}</li>
+            <li>{i18n.t('games.card_game_feature_3')}</li>
+            <li>{i18n.t('games.card_game_feature_4')}</li>
+            <li>{i18n.t('games.card_game_feature_5')}</li>
           </ul>
         </div>
       </div>

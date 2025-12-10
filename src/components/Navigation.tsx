@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
-import { ModeToggle } from './ModeToggle';
 import { SettingsMenu } from './SettingsMenu';
-import { useMode } from '../contexts/ModeContext';
 import { i18n } from '../i18n/i18n';
 import './Navigation.css';
 
@@ -16,9 +14,6 @@ interface NavigationProps {
 }
 
 export const Navigation = ({ username, onLogout, onExport, onImport, onPrint, onTimezoneChange }: NavigationProps) => {
-  const { mode } = useMode();
-  const isPro = mode === 'pro';
-  
   // Force re-render when language changes
   const [, setLanguageChangeTrigger] = useState(0);
   
@@ -42,30 +37,19 @@ export const Navigation = ({ username, onLogout, onExport, onImport, onPrint, on
           <NavLink to="/" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`} end>
             {i18n.t('navigation.home')}
           </NavLink>
-          {isPro && (
-            <>
-              <NavLink to="/games" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
-                {i18n.t('navigation.games')}
-              </NavLink>
-              <NavLink to="/storage" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
-                {i18n.t('navigation.storage')}
-              </NavLink>
-              <NavLink to="/about" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
-                {i18n.t('navigation.about')}
-              </NavLink>
-            </>
-          )}
+          <NavLink to="/games" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
+            {i18n.t('navigation.games')}
+          </NavLink>
+          <NavLink to="/storage" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
+            {i18n.t('navigation.storage')}
+          </NavLink>
+          <NavLink to="/settings" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
+            {i18n.t('navigation.settings')}
+          </NavLink>
         </div>
 
         <div className="nav-actions">
-          <ModeToggle />
-          <SettingsMenu
-            onExport={onExport}
-            onImport={onImport}
-            onPrint={onPrint}
-            onTimezoneChange={onTimezoneChange}
-          />
-          <NavLink to="/profile" className="nav-user nav-link">
+          <NavLink to="/profile" className="nav-user">
             <span className="nav-user-icon">👤</span>
             <span className="nav-username">{username}</span>
           </NavLink>

@@ -31,7 +31,7 @@ export const Login = ({ onLogin }: LoginProps) => {
   return (
     <div className="login-container" ref={containerRef}>
       <div className="login-card">
-        <h1 className="login-title">🏃 RunawayLog</h1>
+        <h1 className="login-title">🏃 跑路模擬器</h1>
         <p className="login-subtitle">Track your desire to escape the daily grind</p>
         <p className="login-slogan">"Every click is a dream of freedom"</p>
         <form onSubmit={handleSubmit}>

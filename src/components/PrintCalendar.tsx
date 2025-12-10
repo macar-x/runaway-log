@@ -100,7 +100,7 @@ export const PrintCalendar = ({ hits, username, currentMonth, onClose, timezone:
         <div className="print-preview" ref={printRef}>
           <div className="print-content">
             <div className="print-header">
-              <h1 className="print-title">🏃 RunawayLog</h1>
+              <h1 className="print-title">🏃 跑路模擬器</h1>
               <div className="print-user-info">
                 <span className="print-username">{username}</span>
                 <span className="print-date">{new Date().toLocaleDateString('en-US', { 

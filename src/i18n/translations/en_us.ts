@@ -1,11 +1,51 @@
 export const en_us = {
+  storage: {
+    title: "☁️ Storage",
+    description: "Manage your runaway data",
+    webdav: "WebDAV",
+    webdav_description: "Connect to your own WebDAV server for complete control over your data.",
+    firebase: "Firebase",
+    firebase_description: "Real-time sync with Google Firebase for instant updates across devices.",
+    supabase: "Supabase",
+    supabase_description: "Open-source backend with PostgreSQL database and real-time subscriptions.",
+    coming_soon: "Coming Soon"
+  },
+  games: {
+    hub_title: "🎮 Game Modes",
+    hub_subtitle: "Different ways to track your escape dreams",
+    card_drop: "Card Drop",
+    card_drop_description: "Collect random cards with each escape dream. Build your collection!",
+    fork_in_the_road: "Fork in the Road",
+    fork_in_the_road_description: "Choose the right path! Only one of three buttons will record a successful escape.",
+    slot_machine: "Slot Machine",
+    slot_machine_description: "Spin the slots and win rewards for your escape streaks.",
+    achievements: "Achievements",
+    achievements_description: "Unlock badges and achievements for hitting milestones.",
+    daily_challenges: "Daily Challenges",
+    daily_challenges_description: "Complete daily challenges for bonus rewards and streaks.",
+    available: "Available",
+    coming_soon: "Coming Soon",
+    enabled: "Enabled",
+    disabled: "Disabled",
+    card_game_title: "🃏 Card Drop Game",
+    card_game_description: "Coming in the next update! Collect random cards with each escape dream.",
+    card_game_features: "Features:",
+    card_game_feature_1: "🎴 Collectible card system with 4 rarity levels",
+    card_game_feature_2: "✨ Random card drops with each hit",
+    card_game_feature_3: "📚 Card gallery to view your collection",
+    card_game_feature_4: "🏆 Achievement system for completing sets",
+    card_game_feature_5: "🎨 Beautiful card designs and animations",
+    card_album: "📚 Card Album",
+    prev_card: "Previous Card",
+    next_card: "Next Card"
+  },
   dashboard: {
     title: "Dreaming of Escape?",
     run_button: "RUN",
     hit_count: "Runaway Count: <strong>{count}</strong>",
     logout: "Logout",
     settings: "⚙️ Settings",
-    brand_title: "RunawayLog"
+    brand_title: "The Runaway Emulator"
   },
   settings_menu: {
     title: "Settings",
@@ -72,10 +112,29 @@ export const en_us = {
   },
   navigation: {
     home: "Home",
-    about: "About",
+    games: "Games",
     storage: "Storage",
-    releases: "Releases",
-    profile: "Profile",
-    games: "Games"
-  }
+    settings: "Settings",
+    profile: "Profile"
+  },
+  settings: {
+    title: "⚙️ Settings",
+    theme: "🎨 Theme",
+    dark_mode: "🌓 Dark Mode",
+    dark: "Dark",
+    light: "Light",
+    timezone: "🌍 Timezone",
+    language: "🌐 Language",
+    data_management: "💾 Data Management",
+    export_data: "📤 Export Data",
+    import_data: "📥 Import Data",
+    print_calendar: "🖨️ Print Calendar",
+    about: "ℹ️ About",
+    about_description: "Track your runaway dreams! Every click represents a moment when you wanted to run away from work and do something more meaningful.",
+    built_with: "Built with ❤️ using React, TypeScript, and Vite",
+    powered_by: "Powered by <strong>Ona</strong>, the AI software engineering agent",
+    version: "Version 1.1.0 • MIT License • © 2025",
+    regional_settings: "🌍 Regional Settings",
+    appearance_settings: "🎨 Appearance Settings"
+  },
 };

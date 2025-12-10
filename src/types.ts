@@ -6,6 +6,7 @@ export type HitLog = {
 
 export type GameSettings = {
   forkInTheRoadEnabled?: boolean;
+  cardDropEnabled?: boolean;
 };
 
 export type UserSettings = {
@@ -26,4 +27,5 @@ export type UserData = {
   hits: HitLog[];
   settings?: UserSettings;
   profile?: UserProfile;
+  cardCollections?: Record<string, number>;
 };
